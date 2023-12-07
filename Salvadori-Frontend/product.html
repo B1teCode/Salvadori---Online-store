@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product | ---</title>
+    <link rel="stylesheet" href="vendor/style/style.css" type="text/css">
+    <link rel="stylesheet" href="vendor/style/product.css">
+    <link rel="stylesheet" href="vendor/style/slider.css" type="text/css">
+    <script src="vendor/js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // инициализация слайдера
+            var slider = new SimpleAdaptiveSlider('.slider', {
+                autoplay: true,
+                interval: 10000,
+            });
+        });
+    </script>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+
+<body>
+    <!-- меню -->
+    <nav class="navbar">
+        <div class="navbar-container container">
+            <input type="checkbox" name="" id="">
+            <div class="hamburger-lines">
+                <span class="line line1"></span>
+                <span class="line line2"></span>
+                <span class="line line3"></span>
+            </div>
+            <ul class="menu-items">
+                <a href="#shoes">
+                    <li>Обувь</li>
+                </a>
+                <a href="#clothes">
+                    <li>Одежда</li>
+                </a>
+                <a href="#">
+                    <li>Аксессуары</li>
+                </a>
+                <a href="#">
+                    <li>Коллекции</li>
+                </a>
+                <a href="#">
+                    <li class="r">Индивидуальный заказ</li>
+                </a>
+            </ul>
+            <div class="profile">
+                <a href="users/login.html" class="logout-login">ВЫЙТИ</a>
+                <a href="users/profile.html"><i class='bx bxs-user-circle'></i></a>
+            </div>
+            <h1 class="logo"><a href="index.html">Salvadori</a></h1>
+
+        </div>
+    </nav>
+
+    <!--main-->
+    <main>
+        <span>
+            <a href="index.html">
+                Главная
+            </a>\
+            <a href="#">
+                Одежда
+            </a>\
+            NIKE LIFE CABLE KNIT SWEATER OXEN BROWN
+        </span>
+
+        <div class="product">
+            <div class="product-slider">
+                <!-- Разметка слайдера -->
+                <div class="slider slider-product">
+                    <div class="slider__wrapper">
+                        <div class="slider__items">
+                            <div class="slider__item slider-item-product">
+                                <img class="img-fluid img-fluid-to-product" src="https://pngimg.com/uploads/hoodie/hoodie_PNG24.png" alt="..."
+                                    loading="lazy">
+                            </div>
+                            <div class="slider__item slider-item-product">
+                                <img class="img-fluid img-fluid-to-product" src="https://pngimg.com/uploads/hoodie/hoodie_PNG22.png" alt="..."
+                                    loading="lazy">
+                            </div>
+                            <div class="slider__item slider-item-product">
+                                <img class="img-fluid img-fluid-to-product" src="https://www.pngarts.com/files/11/Sweatshirt-Hoodie-PNG-High-Quality-Image.png" alt="..."
+                                    loading="lazy">
+                            </div>
+                            <div class="slider__item slider-item-product">
+                                <img class="img-fluid img-fluid-to-product" src="https://pngimg.com/uploads/hoodie/hoodie_PNG29.png" alt="..."
+                                    loading="lazy">
+                            </div>
+                        </div>
+                    </div>
+                    <a class="slider__control slider__control_prev slider-cont-product slider__control_prev-p" href="#" role="button" data-slide="prev"></a>
+                    <a class="slider__control slider__control_next slider-cont-product slider__control_next-p" href="#" role="button" data-slide="next"></a>
+                </div>
+            </div>
+            <div class="product-other">
+                <h3>NIKE LIFE CABLE KNIT SWEATER OXEN BROWN</h3>
+                <span>От 39 900 ₽</span>
+
+                <p>РАЗМЕРЫ</p>
+                <div class="size">
+                    <form>
+                        <div class="form_radio_btn">
+                            <input id="radio-1" type="radio" name="radio" value="S" checked>
+                            <label for="radio-1">S<br><span>От 39 900 ₽</span></label>
+                        </div>
+                        
+                        <div class="form_radio_btn">
+                            <input id="radio-2" type="radio" name="radio" value="M">
+                            <label for="radio-2">M<br><span>От 39 900 ₽</span></label>
+                        </div>
+                        
+                        <div class="form_radio_btn">
+                            <input id="radio-3" type="radio" name="radio" value="L">
+                            <label for="radio-3">L<br><span>От 39 900 ₽</span></label>
+                        </div>
+
+                        <div class="form_radio_btn">
+                            <input id="radio-4" type="radio" name="radio" value="XL">
+                            <label for="radio-4">XL<br><span>От 39 900 ₽</span></label>
+                        </div>
+
+                        <div class="form_radio_btn">
+                            <input id="radio-5" type="radio" name="radio" value="XXL">
+                            <label for="radio-5">XXL<br><span>От 39 900 ₽</span></label>
+                        </div>
+
+                        <div class="form_radio_btn">
+                            <input id="radio-6" type="radio" name="radio" value="XXXL">
+                            <label for="radio-6">XXXL<br><span>От 39 900 ₽</span></label>
+                        </div>
+                        
+                        <!-- <div class="form_radio_btn">
+                            <input id="radio-4" type="radio" name="radio" value="4" disabled>
+                            <label for="radio-4">M<br>От 39 900 ₽</label>
+                        </div> -->
+
+                        <input type="submit" value="ДОБАВИТЬ В КОРЗИНУ" class="submit-to-cart">
+                    </form>
+                </div>
+
+                
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="left">
+            <div class="navigate">
+                <h3>Разделы</h3>
+                <ul class="">
+                    <a href="#shoes">
+                        <li>Обувь</li>
+                    </a>
+                    <a href="#clothes">
+                        <li>Одежда</li>
+                    </a>
+                    <a href="#">
+                        <li>Аксессуары</li>
+                    </a>
+                    <a href="#">
+                        <li>Коллекции</li>
+                    </a>
+                </ul>
+            </div>
+
+            <div class="inforamtion-block">
+                <h3>Информация</h3>
+                <ul class="">
+                    <a href="#">
+                        <li>Контакты</li>
+                    </a>
+                    <a href="#">
+                        <li>Доставка</li>
+                    </a>
+                    <a href="#">
+                        <li>Оплата</li>
+                    </a>
+                    <a href="#">
+                        <li>Возврат</li>
+                    </a>
+                </ul>
+            </div>
+        </div>
+
+        <div class="right">
+            <div class="contacts">
+                <h3>Контакты</h3>
+                <p>8 (495) 568-12-12
+                    ЧАСЫ РАБОТЫ (С 11:00 ДО 22:00)
+                    SUPPORT@NIKITANIKITA.COM</p>
+                <p>МОСКВА, ПЕТРОВКА 15/1
+                    МОСКВА, ЦВЕТНОЙ БУЛЬВАР, 15, УНИВЕРМАГ "ЦВЕТНОЙ", 2 ЭТАЖ
+                    САНКТ-ПЕТЕРБУРГ, НЕВСКИЙ ПРОСПЕКТ, 150</p>
+                <p>ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ В МАГАЗИНЕ SALVADORI
+                    ПОЛЬЗОВАТЕЛЬСКОЕ СОГЛАШЕН ИЕ
+                    ДОГОВОР ОФЕРТЫ</p>
+            </div>
+
+            <div class="social-contacts">
+                <h3>Мы в соцсетях</h3>
+                <i class='bx bxl-telegram'></i>
+                <i class='bx bxl-whatsapp'></i>
+            </div>
+        </div>
+        <p class="serticited_link">2023 Ⓒ SALVADORI <span>ВСЕ ПРАВА ЗАЩИЩЕНЫ</span></p>
+    </footer>
+</body>
+
+</html>
