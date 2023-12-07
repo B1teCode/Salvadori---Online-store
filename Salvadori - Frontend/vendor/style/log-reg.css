@@ -1,0 +1,288 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+*,
+*:before,
+*:after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #080710;
+  font-family: "Montserrat", sans-serif;
+}
+
+.background {
+  width: 430px;
+  height: 520px;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 50%;
+}
+
+form {
+  background: #fff;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  border-radius: 10px;
+  padding: 50px 35px;
+}
+
+form h3 {
+  font-size: 2em;
+  font-weight: 500;
+  line-height: 42px;
+  text-align: center;
+}
+
+form label {
+  display: block;
+  margin-top: 30px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+form input {
+  display: block;
+  height: 50px;
+  width: 100%;
+  border-radius: 8px;
+  padding: 0 10px;
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 300;
+  outline: none;
+  border: 1px solid black;
+}
+
+::placeholder {
+  color: #a6a6a6;
+}
+
+form button {
+  width: 100%;
+  padding: 15px 10px;
+  background-color: #212323;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  margin-top: 50px;
+  border-radius: 8px;
+}
+form .help-links {
+  display: flex;
+  margin-top: 10px;
+  justify-content: space-between;
+  font-size: 0.85em;
+  padding: 0px 3px;
+}
+form .help-links-reg {
+  display: flex;
+  margin-top: 10px;
+  justify-content: flex-end;
+  font-size: 0.85em;
+  padding: 0px 3px;
+}
+form .help-links a,
+form .help-links-reg a {
+  text-decoration: none;
+}
+form .social {
+  display: flex;
+  margin-top: 30px;
+  justify-content: space-between;
+}
+
+form .social div {
+  width: 48%;
+  text-align: center;
+  padding: 10px;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 8px;
+  font-size: 0.9em;
+}
+
+form .social .go {
+  background-color: #db4437;
+}
+
+form .social .fb {
+  background-color: #3b5998;
+}
+@media screen and (max-width: 768px) {
+  form {
+    width: 80%;
+  }
+  form .social div {
+    font-size: 0.7em;
+  }
+  form .help-links {
+    font-size: 0.7em;
+  }
+}
+/* @import url("https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700;800;900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+:root {
+  --font-family: "Exo 2", sans-serif;
+  --border-radius: 8px;
+}
+body {
+  font-family: var(--font-family);
+}
+@import url("https://rsms.me/inter/inter-ui.css");
+::selection {
+  background: #2d2f36;
+}
+::-webkit-selection {
+  background: #2d2f36;
+}
+::-moz-selection {
+  background: #2d2f36;
+}
+.page {
+  background: #e2e2e5;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  place-content: center;
+  width: 100vw;
+  height: 100vh;
+}
+@media (max-width: 767px) {
+  .page {
+    height: auto;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+  }
+}
+.container {
+  display: flex;
+  height: 380px;
+  margin: 0 auto;
+  width: 700px;
+}
+.container2 {
+  display: flex;
+  height: 300px;
+  margin: 0 auto;
+  width: 640px;
+}
+@media (max-width: 767px) {
+  .container {
+    flex-direction: column;
+    height: 630px;
+    width: 320px;
+  }
+}
+
+.left {
+    background: white;
+    height: calc(100% - 40px);
+    top: 20px;
+    position: relative;
+    width: 50%;
+  }
+@media (max-width: 767px) {
+  .left {
+    height: 100%;
+    left: 20px;
+    width: calc(100% - 40px);
+    max-height: 270px;
+  }
+}
+.login {
+  font-size: 50px;
+  font-weight: 900;
+  margin: 50px 40px 40px;
+}
+.loginn {
+    font-size: 40px;
+    font-weight: 900;
+    margin: 50px 40px 40px;
+  }
+.eula {
+  color: #999;
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 40px;
+}
+
+.right {
+  background: #474a59;
+  box-shadow: 0px 0px 40px 16px rgba(0, 0, 0, 0.22);
+  color: #f1f1f2;
+  position: relative;
+  width: 50%;
+}
+
+@media (max-width: 767px) {
+  .right {
+    flex-shrink: 0;
+    height: 100%;
+    width: 100%;
+    max-height: 350px;
+  }
+}
+svg {
+  position: absolute;
+  width: 320px;
+}
+path {
+  fill: none;
+  stroke: url(#linearGradient);
+  stroke-width: 4;
+  stroke-dasharray: 240 1386;
+}
+.form {
+  margin: 40px;
+  position: absolute;
+}
+label {
+  color: #c2c2c5;
+  display: block;
+  font-size: 14px;
+  height: 16px;
+  margin-top: 20px;
+  margin-bottom: 5px;
+}
+input {
+  background: transparent;
+  border: 0;
+  color: #f2f2f2;
+  font-size: 20px;
+  height: 30px;
+  line-height: 30px;
+  outline: none !important;
+  width: 100%;
+}
+input::-moz-focus-inner {
+  border: 0;
+}
+#submit {
+  color: #707075;
+  margin-top: 40px;
+  transition: color 300ms;
+  cursor: pointer;
+  box-shadow: 10px 10px 16px 6px rgba(0, 0, 0, 0.22);
+  border-radius: 16px;
+}
+#submit:focus {
+  color: #f2f2f2;
+}
+#submit:active {
+  color: #d0d0d2;
+  box-shadow:none;
+}
+#submit:hover{
+    color: rgb(173, 170, 170)
+} */
