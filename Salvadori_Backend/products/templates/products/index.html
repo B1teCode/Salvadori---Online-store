@@ -1,10 +1,488 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
+
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главная</title>
+    <link rel="stylesheet" href="/static/vendor/style/style.css" type="text/css">
+    <link rel="stylesheet" href="/static/vendor/style/slider.css" type="text/css">
+    <script src="/static/vendor/js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // инициализация слайдера
+            var slider = new SimpleAdaptiveSlider('.slider', {
+                autoplay: true,
+                interval: 10000,
+            });
+        });
+    </script>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
+
 <body>
-$END$
+
+    <!-- меню -->
+    <nav class="navbar">
+        <div class="navbar-container container">
+            <input type="checkbox" name="" id="">
+            <div class="hamburger-lines">
+                <span class="line line1"></span>
+                <span class="line line2"></span>
+                <span class="line line3"></span>
+            </div>
+            <ul class="menu-items">
+                <a href="#shoes">
+                    <li>Обувь</li>
+                </a>
+                <a href="#clothes">
+                    <li>Одежда</li>
+                </a>
+                <a href="#">
+                    <li>Аксессуары</li>
+                </a>
+                <a href="#">
+                    <li>Коллекции</li>
+                </a>
+                <a href="#">
+                    <li class="r">Индивидуальный заказ</li>
+                </a>
+            </ul>
+            <div class="profile">
+                <a href="users/login.html" class="logout-login">ВЫЙТИ</a>
+                <a href="users/profile.html"><i class='bx bxs-user-circle'></i></a>
+            </div>
+            <h1 class="logo"><a href="index.html">Salvadori</a></h1>
+
+        </div>
+    </nav>
+
+    <!-- header-slider -->
+    <header>
+        <!-- Разметка слайдера -->
+        <div class="slider">
+            <div class="slider__wrapper">
+                <div class="slider__items">
+                    <div class="slider__item">
+                        <a href="#">
+                            <img class="img-fluid" src="/static/vendor/img/1.png" alt="..." loading="lazy">
+                        </a>
+                    </div>
+                    <div class="slider__item">
+                        <a href="#">
+                            <img class="img-fluid" src="/static/vendor/img/2.jpg" alt="..." loading="lazy">
+                        </a>
+                    </div>
+                    <div class="slider__item">
+                        <a href="#">
+                            <img class="img-fluid" src="/static/vendor/img/3.jpg" alt="..." loading="lazy">
+                        </a>
+                    </div>
+                    <div class="slider__item">
+                        <a href="#">
+                            <img class="img-fluid" src="/static/vendor/img/4.jpg" alt="..." loading="lazy">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <a class="slider__control slider__control_prev" href="#" role="button" data-slide="prev"></a>
+            <a class="slider__control slider__control_next" href="#" role="button" data-slide="next"></a>
+        </div>
+    </header>
+
+    <!-- main -->
+    <main>
+        <div class="testimonials" id="shoes">
+            <div class="general-heading">
+                <h1>Обувь</h1>
+                <a href="#">Все модели <i class='bx bxs-right-top-arrow-circle bx-tada'></i></a>
+            </div>
+            <div class="testimonial-carts">
+                <div class="testimonial-cart">
+                    <div class="images">
+                        <img src="/static/vendor/img/sneakers1.png" alt="">
+                    </div>
+                    <div class="testimonial-description">
+                        <a href="product.html" target="_blank">
+                            <h2 class="testimonial-title-desctiption">
+                                NEW BALANCE 2002R GREY BROWN POUCH
+                            </h2>
+                        </a>
+                        <div class="price-and-status"><span class="testimonial-price">от 39 900 ₽</span>
+                            <span>В НАЛИЧИИ</span>
+                        </div>
+                    </div>
+                    <a href="#" class="testimonial-button-go-over">
+                        <button>Перейти</button>
+                    </a>
+                </div>
+
+                <div class="testimonial-cart">
+                    <div class="images">
+                        <img src="/static/vendor/img/sneakers2.png" alt="">
+                    </div>
+                    <div class="testimonial-description">
+                        <h2 class="testimonial-title-desctiption">
+                            NEW BALANCE 2002R GREY BROWN POUCH
+                        </h2>
+                        <div class="price-and-status"><span class="testimonial-price">от 39 900 ₽</span>
+                            <span class="tag"> По запросу</span>
+                        </div>
+                        </a>
+                    </div>
+                    <a href="#" class="testimonial-button-go-over">
+                        <button>Перейти</button>
+                    </a>
+                </div>
+
+                <div class="testimonial-cart">
+                    <div class="images">
+                        <img src="/static/vendor/img/sneakers3.png" alt="">
+                    </div>
+                    <div class="testimonial-description">
+                        <h2 class="testimonial-title-desctiption">
+                            NEW BALANCE 2002R GREY BROWN POUCH
+                        </h2>
+                        <div class="price-and-status"><span class="testimonial-price">от 39 900 ₽</span>
+                            <span class="tag"> По запросу</span>
+                        </div>
+                        </a>
+                    </div>
+                    <a href="#" class="testimonial-button-go-over">
+                        <button>Перейти</button>
+                    </a>
+                </div>
+
+                <div class="testimonial-cart">
+                    <div class="images">
+                        <img src="/static/vendor/img/sneakers4.png" alt="">
+                    </div>
+                    <div class="testimonial-description">
+                        <h2 class="testimonial-title-desctiption">
+                            NEW BALANCE 2002R GREY BROWN POUCH
+                        </h2>
+                        <div class="price-and-status"><span class="testimonial-price">от 39 900 ₽</span>
+                            <span>В НАЛИЧИИ</span>
+                        </div>
+                    </div>
+                    <a href="#" class="testimonial-button-go-over">
+                        <button>Перейти</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="testimonials" id="clothes">
+            <div class="general-heading">
+                <h1>Одежда</h1>
+                <a href="#">Все модели <i class='bx bxs-right-top-arrow-circle bx-tada'></i></a>
+            </div>
+            <div class="testimonial-carts">
+                <div class="testimonial-cart">
+                    <div class="images">
+                        <img src="https://pngimg.com/uploads/hoodie/hoodie_PNG22.png" alt="">
+                    </div>
+                    <div class="testimonial-description">
+                        <h2 class="testimonial-title-desctiption">
+                            TRAVIS SCOTT NEW SIGHT ZIP UP HOODIE OLIVE (SS22)
+                        </h2>
+                        <div class="price-and-status"><span class="testimonial-price">от 39 900 ₽</span>
+                            <span>В НАЛИЧИИ</span>
+                        </div>
+                    </div>
+                    <a href="#" class="testimonial-button-go-over">
+                        <button>Перейти</button>
+                    </a>
+                </div>
+
+                <div class="testimonial-cart">
+                    <div class="images">
+                        <img src="https://pngimg.com/uploads/hoodie/hoodie_PNG24.png" alt="">
+                    </div>
+                    <div class="testimonial-description">
+                        <h2 class="testimonial-title-desctiption">
+                            NIKE LIFE CABLE KNIT SWEATER OXEN BROWN
+                        </h2>
+                        <div class="price-and-status"><span class="testimonial-price">от 39 900 ₽</span>
+                            <span class="tag"> По запросу</span>
+                        </div>
+                        </a>
+                    </div>
+                    <a href="#" class="testimonial-button-go-over">
+                        <button>Перейти</button>
+                    </a>
+                </div>
+
+                <div class="testimonial-cart">
+                    <div class="images">
+                        <img src="https://www.pngarts.com/files/11/Sweatshirt-Hoodie-PNG-High-Quality-Image.png" alt="">
+                    </div>
+                    <div class="testimonial-description">
+                        <h2 class="testimonial-title-desctiption">
+                            NIKE LIFE CABLE KNIT SWEATER RATTAN
+                        </h2>
+                        <div class="price-and-status"><span class="testimonial-price">от 39 900 ₽</span>
+                            <span class="tag"> По запросу</span>
+                        </div>
+                        </a>
+                    </div>
+                    <a href="#" class="testimonial-button-go-over">
+                        <button>Перейти</button>
+                    </a>
+                </div>
+
+                <div class="testimonial-cart">
+                    <div class="images">
+                        <img src="https://pngimg.com/uploads/hoodie/hoodie_PNG29.png" alt="">
+                    </div>
+                    <div class="testimonial-description">
+                        <h2 class="testimonial-title-desctiption">
+                            STONE ISLAND HAND SPRAYED COTTON CREW KNIT SAND
+                        </h2>
+                        <div class="price-and-status"><span class="testimonial-price">от 39 900 ₽</span>
+                            <span class="tag"> По запросу</span>
+                        </div>
+                        </a>
+                    </div>
+                    <a href="#" class="testimonial-button-go-over">
+                        <button>Перейти</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="testimonials" id="clothes">
+            <div class="general-heading">
+                <h1>Аксессуары</h1>
+                <a href="#">Все модели <i class='bx bxs-right-top-arrow-circle bx-tada'></i></a>
+            </div>
+            <div class="testimonial-carts">
+                <div class="testimonial-cart">
+                    <div class="images">
+                        <img src="https://sc04.alicdn.com/kf/UTB8gBMRhgnJXKJkSael760UzXXaH.png" alt="">
+                    </div>
+                    <div class="testimonial-description">
+                        <h2 class="testimonial-title-desctiption">
+                            NE WORLDWIDE SHOE BAG ORANGE
+                        </h2>
+                        <div class="price-and-status"><span class="testimonial-price">от 39 900 ₽</span>
+                            <span>В НАЛИЧИИ</span>
+                        </div>
+                    </div>
+                    <a href="#" class="testimonial-button-go-over">
+                        <button>Перейти</button>
+                    </a>
+                </div>
+
+                <div class="testimonial-cart">
+                    <div class="images">
+                        <img src="https://ru-static.z-dn.net/files/d74/08e709cdda5eb4566cef7ea3f2e7a8a3.png" alt="">
+                    </div>
+                    <div class="testimonial-description">
+                        <h2 class="testimonial-title-desctiption">
+                            TARRAGO PROTECTOR UNIVERSAL 300ML
+                        </h2>
+                        <div class="price-and-status"><span class="testimonial-price">от 39 900 ₽</span>
+                            <span class="tag"> По запросу</span>
+                        </div>
+                        </a>
+                    </div>
+                    <a href="#" class="testimonial-button-go-over">
+                        <button>Перейти</button>
+                    </a>
+                </div>
+
+                <div class="testimonial-cart">
+                    <div class="images">
+                        <img src="https://pngimg.com/uploads/backpack/backpack_PNG6343.png" alt="">
+                    </div>
+                    <div class="testimonial-description">
+                        <h2 class="testimonial-title-desctiption">
+                            NIKE UTILITY SPEED BACKPACK OLIVE
+                        </h2>
+                        <div class="price-and-status"><span class="testimonial-price">от 39 900 ₽</span>
+                            <span class="tag"> По запросу</span>
+                        </div>
+                        </a>
+                    </div>
+                    <a href="#" class="testimonial-button-go-over">
+                        <button>Перейти</button>
+                    </a>
+                </div>
+
+                <div class="testimonial-cart">
+                    <div class="images">
+                        <img src="https://i.ebayimg.com/images/g/g3AAAOSwjaNc-66y/s-l1600.jpg" alt="">
+                    </div>
+                    <div class="testimonial-description">
+                        <h2 class="testimonial-title-desctiption">
+                            SUPREME X POLARTEC CAMP CAP BLACK (FW22)
+                        </h2>
+                        <div class="price-and-status"><span class="testimonial-price">от 39 900 ₽</span>
+                            <span class="tag"> По запросу</span>
+                        </div>
+                        </a>
+                    </div>
+                    <a href="#" class="testimonial-button-go-over">
+                        <button>Перейти</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="testimonials" id="clothes">
+            <div class="general-heading">
+                <h1>Коллекции</h1>
+                <a href="#">Все модели <i class='bx bxs-right-top-arrow-circle bx-tada'></i></a>
+            </div>
+            <div class="testimonial-carts">
+                <div class="testimonial-cart">
+                    <div class="images">
+                        <img src="https://brandpresent.ru/netcat_files/multifile/1794/ZGBS_2935.jpg" alt="">
+                    </div>
+                    <div class="testimonial-description">
+                        <h2 class="testimonial-title-desctiption">
+                            TRAVIS SCOTT NEW SIGHT ZIP UP HOODIE OLIVE (SS22)
+                        </h2>
+                        <div class="price-and-status"><span class="testimonial-price">от 39 900 ₽</span>
+                            <span>В НАЛИЧИИ</span>
+                        </div>
+                    </div>
+                    <a href="#" class="testimonial-button-go-over">
+                        <button>Перейти</button>
+                    </a>
+                </div>
+
+                <div class="testimonial-cart">
+                    <div class="images">
+                        <img src="http://file.mobilmusic.ru/53/81/83/941383-800.jpg" alt="">
+                    </div>
+                    <div class="testimonial-description">
+                        <h2 class="testimonial-title-desctiption">
+                            NIKE LIFE CABLE KNIT SWEATER OXEN BROWN
+                        </h2>
+                        <div class="price-and-status"><span class="testimonial-price">от 39 900 ₽</span>
+                            <span class="tag"> По запросу</span>
+                        </div>
+                        </a>
+                    </div>
+                    <a href="#" class="testimonial-button-go-over">
+                        <button>Перейти</button>
+                    </a>
+                </div>
+
+                <div class="testimonial-cart">
+                    <div class="images">
+                        <img src="https://papik.pro/izobr/uploads/posts/2023-03/1679443951_papik-pro-p-kartina-matreshka-dlya-detei-43.png"
+                            alt="">
+                    </div>
+                    <div class="testimonial-description">
+                        <h2 class="testimonial-title-desctiption">
+                            NIKE LIFE CABLE KNIT SWEATER RATTAN
+                        </h2>
+                        <div class="price-and-status"><span class="testimonial-price">от 39 900 ₽</span>
+                            <span class="tag"> По запросу</span>
+                        </div>
+                        </a>
+                    </div>
+                    <a href="#" class="testimonial-button-go-over">
+                        <button>Перейти</button>
+                    </a>
+                </div>
+
+                <div class="testimonial-cart">
+                    <div class="images">
+                        <img src="https://pluspng.com/img-png/toy-bear-png-teddy-bear-png-hd-png-image-1200.png" alt="">
+                    </div>
+                    <div class="testimonial-description">
+                        <h2 class="testimonial-title-desctiption">
+                            STONE ISLAND HAND SPRAYED COTTON CREW KNIT SAND
+                        </h2>
+                        <div class="price-and-status"><span class="testimonial-price">от 39 900 ₽</span>
+                            <span class="tag"> По запросу</span>
+                        </div>
+                        </a>
+                    </div>
+                    <a href="#" class="testimonial-button-go-over">
+                        <button>Перейти</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- <section>
+        <h1 class="logo">Salvadori</h1>
+        <h2>В КАТАЛОГЕ НЕТ ИНТЕРЕСУЮЩЕЙ МОДЕЛИ?
+            ВЫ ВСЕГДА МОЖЕТЕ ОФОРМИТЬ
+            ИНДИВИДУАЛЬНЫЙ ЗАКАЗ</h2>
+        <a href="#">Оформить индивидуальный заказ</a>
+    </section> -->
+
+    <footer>
+        <div class="left">
+            <div class="navigate">
+                <h3>Разделы</h3>
+                <ul class="">
+                    <a href="#shoes">
+                        <li>Обувь</li>
+                    </a>
+                    <a href="#clothes">
+                        <li>Одежда</li>
+                    </a>
+                    <a href="#">
+                        <li>Аксессуары</li>
+                    </a>
+                    <a href="#">
+                        <li>Коллекции</li>
+                    </a>
+                </ul>
+            </div>
+
+            <div class="inforamtion-block">
+                <h3>Информация</h3>
+                <ul class="">
+                    <a href="#">
+                        <li>Контакты</li>
+                    </a>
+                    <a href="#">
+                        <li>Доставка</li>
+                    </a>
+                    <a href="#">
+                        <li>Оплата</li>
+                    </a>
+                    <a href="#">
+                        <li>Возврат</li>
+                    </a>
+                </ul>
+            </div>
+        </div>
+
+        <div class="right">
+            <div class="contacts">
+                <h3>Контакты</h3>
+                <p>8 (495) 568-12-12
+                    ЧАСЫ РАБОТЫ (С 11:00 ДО 22:00)
+                    SUPPORT@NIKITANIKITA.COM</p>
+                <p>МОСКВА, ПЕТРОВКА 15/1
+                    МОСКВА, ЦВЕТНОЙ БУЛЬВАР, 15, УНИВЕРМАГ "ЦВЕТНОЙ", 2 ЭТАЖ
+                    САНКТ-ПЕТЕРБУРГ, НЕВСКИЙ ПРОСПЕКТ, 150</p>
+                <p>ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ В МАГАЗИНЕ SALVADORI
+                    ПОЛЬЗОВАТЕЛЬСКОЕ СОГЛАШЕН ИЕ
+                    ДОГОВОР ОФЕРТЫ</p>
+            </div>
+
+            <div class="social-contacts">
+                <h3>Мы в соцсетях</h3>
+                <i class='bx bxl-telegram'></i>
+                <i class='bx bxl-whatsapp'></i>
+            </div>
+        </div>
+        <p class="serticited_link">2023 Ⓒ SALVADORI <span>ВСЕ ПРАВА ЗАЩИЩЕНЫ</span></p>
+    </footer>
+
+
+
 </body>
+
 </html>
