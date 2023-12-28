@@ -1,0 +1,25 @@
+{% extends 'users/base.html' %}
+{% load static %}
+{% block form %}
+   <form action="{% url 'users:login' %}" method="post">
+       {% csrf_token %}
+       <h3>Войти</h3>
+
+        <label for="{{ form.username.id_for_label }}">Логин</label>
+        {{ form.username }}
+
+        <label for="{{ form.username.id_for_label }}">Пароль</label>
+        {{ form.password }}
+
+        <button>Войти</button>
+        <div class="help-links">
+            <a href="{% url 'users:registration' %}">Создать аккаунт</a>
+            <a href="#">Забыли пароль?</a>
+        </div>
+        <div class="social">
+            <div class="go"><i class="fab fa-google"></i> Google</div>
+            <div class="fb"><i class="fab fa-vk"></i> В контакте</div>
+        </div>
+    </form>
+
+{% endblock %}
