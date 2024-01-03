@@ -41,14 +41,22 @@
                 </a>
             </ul>
             <div class="profile">
-                <a href="{% url 'users:login' %}" class="logout-login">Войти</a>
-                <a href="{% url 'users:profile' %}">
+            {% if user.is_authenticated %}
+                {% if user.is_superuser or user.is_staff %}
+                    <a href="{% url 'admin:index' %}" target="_blank"><span>{{ user.username }}</span></a>
+                {% else %}
+                    <span>{{ user.username }}</span>
+                {% endif %}
+                 <a href="{% url 'users:profile' %}">
                     {% if user.image %}
                         <img src="{{ user.image.url }}" alt="">
                     {% else %}
                         <i class='bx bxs-user-circle'></i>
                     {% endif %}
                 </a>
+            {% else %}
+                <a href="{% url 'users:login' %}" class="logout-login">Войти</a>
+            {% endif %}
             </div>
             <h1 class="logo"><a href="{% url 'index' %}">Salvadori</a></h1>
 

@@ -5,6 +5,19 @@
        {% csrf_token %}
        <h3>Войти</h3>
 
+       <!-- Добавлен блок для уведомлений -->
+        {% if messages or form.non_field_errors %}
+            <div class="notification {% if messages %} success {% else %} error {% endif %}">
+                {% if messages %}
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}
+                {% else %}
+                    {{ form.non_field_errors }}
+                {% endif %}
+            </div>
+        {% endif %}
+
         <label for="{{ form.username.id_for_label }}">Логин</label>
         {{ form.username }}
 
@@ -16,10 +29,13 @@
             <a href="{% url 'users:registration' %}">Создать аккаунт</a>
             <a href="#">Забыли пароль?</a>
         </div>
-        <div class="social">
-            <div class="go"><i class="fab fa-google"></i> Google</div>
-            <div class="fb"><i class="fab fa-vk"></i> В контакте</div>
+        <div class="go_to_the_main">
+            <a href="{% url 'index' %}">На главную</a>
         </div>
+{#        <div class="social">#}
+{#            <div class="go"><i class="fab fa-google"></i> Google</div>#}
+{#            <div class="fb"><i class="fab fa-vk"></i> В контакте</div>#}
+{#        </div>#}
     </form>
 
 {% endblock %}

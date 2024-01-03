@@ -8,15 +8,18 @@
 
 {% block js %}
     <script src="{% static 'vendor/js/script.js' %}"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // инициализация слайдера
-            var slider = new SimpleAdaptiveSlider('.slider', {
-                autoplay: false,
-                interval: 10000,
+    {% if product.additional_images.all.count == 0 %}{% else %}
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                // инициализация слайдера
+                var slider = new SimpleAdaptiveSlider('.slider', {
+                    autoplay: false,
+                    interval: 10000,
+                });
             });
-        });
-    </script>
+        </script>
+    {% endif %}
+
 {% endblock %}
 
 {% block content %}
@@ -37,22 +40,16 @@
                 <div class="slider slider-product">
                     <div class="slider__wrapper">
                         <div class="slider__items">
-                            <div class="slider__item slider-item-product">
-                                <img class="img-fluid img-fluid-to-product" src="https://pngimg.com/uploads/hoodie/hoodie_PNG24.png" alt="..."
-                                    loading="lazy">
-                            </div>
-                            <div class="slider__item slider-item-product">
-                                <img class="img-fluid img-fluid-to-product" src="https://pngimg.com/uploads/hoodie/hoodie_PNG22.png" alt="..."
-                                    loading="lazy">
-                            </div>
-                            <div class="slider__item slider-item-product">
-                                <img class="img-fluid img-fluid-to-product" src="https://www.pngarts.com/files/11/Sweatshirt-Hoodie-PNG-High-Quality-Image.png" alt="..."
-                                    loading="lazy">
-                            </div>
-                            <div class="slider__item slider-item-product">
-                                <img class="img-fluid img-fluid-to-product" src="https://pngimg.com/uploads/hoodie/hoodie_PNG29.png" alt="..."
-                                    loading="lazy">
-                            </div>
+                             {% for image in product.additional_images.all %}
+                                <div class="slider__item slider-item-product">
+                                    <img class="img-fluid img-fluid-to-product" src="{{ image.image.url }}" alt="..." loading="lazy">
+                                </div>
+                            {% endfor %}
+                            {% if product.additional_images.all.count == 0 %}
+                                <div class="slider__item slider-item-product">
+                                    <img class="img-fluid img-fluid-to-product" src="{{ product.main_image.url }}" alt="..." loading="lazy">
+                                </div>
+                            {% endif %}
                         </div>
                     </div>
                     <a class="slider__control slider__control_prev slider-cont-product slider__control_prev-p" href="#" role="button" data-slide="prev"></a>
@@ -60,53 +57,27 @@
                 </div>
             </div>
             <div class="product-other">
-                <h3>NIKE LIFE CABLE KNIT SWEATER OXEN BROWN</h3>
-                <span>От 39 900 ₽</span>
+                <h3>{{ product.name }}</h3>
+                <span>От {{ product.price }} ₽</span>
 
                 <p>РАЗМЕРЫ</p>
                 <div class="size">
-                    <form>
-                        <div class="form_radio_btn">
-                            <input id="radio-1" type="radio" name="radio" value="S" checked>
-                            <label for="radio-1">S<br><span>От 39 900 ₽</span></label>
-                        </div>
-
-                        <div class="form_radio_btn">
-                            <input id="radio-2" type="radio" name="radio" value="M">
-                            <label for="radio-2">M<br><span>От 39 900 ₽</span></label>
-                        </div>
-
-                        <div class="form_radio_btn">
-                            <input id="radio-3" type="radio" name="radio" value="L">
-                            <label for="radio-3">L<br><span>От 39 900 ₽</span></label>
-                        </div>
-
-                        <div class="form_radio_btn">
-                            <input id="radio-4" type="radio" name="radio" value="XL">
-                            <label for="radio-4">XL<br><span>От 39 900 ₽</span></label>
-                        </div>
-
-                        <div class="form_radio_btn">
-                            <input id="radio-5" type="radio" name="radio" value="XXL">
-                            <label for="radio-5">XXL<br><span>От 39 900 ₽</span></label>
-                        </div>
-
-                        <div class="form_radio_btn">
-                            <input id="radio-6" type="radio" name="radio" value="XXXL">
-                            <label for="radio-6">XXXL<br><span>От 39 900 ₽</span></label>
-                        </div>
-
-                        <!-- <div class="form_radio_btn">
-                            <input id="radio-4" type="radio" name="radio" value="4" disabled>
-                            <label for="radio-4">M<br>От 39 900 ₽</label>
-                        </div> -->
-
+                    <form method="post" action="{% url 'basket_add' product.id %}">
+                        {% csrf_token %}
+                        {% for size in product.size_set.all %}
+                            <div class="form_radio_btn">
+                                <input id="radio-{{ size.id }}" type="radio" name="size" value="{{ size.id }}">
+                                <label for="radio-{{ size.id }}">{{ size.name }}<br><span>От {{ product.price }} ₽</span></label>
+                            </div>
+                        {% endfor %}
+                    {% if product.in_stock %}
                         <input type="submit" value="ДОБАВИТЬ В КОРЗИНУ" class="submit-to-cart">
+                    {% else %}
+                        <a href="#" class="submit-to-cart" style="display: block; text-align: center">Запросить покупку</a>
+                    {% endif %}
                     </form>
                 </div>
-
-
             </div>
-        </div>
+            </div>
     </main>
 {% endblock %}

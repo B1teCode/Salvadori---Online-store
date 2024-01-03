@@ -267,7 +267,7 @@ html *::-webkit-scrollbar-thumb {
     top: 10px;
     right: 20px;
     justify-content: center;
-    gap: 0;
+    gap: 10px;
   }
   .navbar .profile .logout-login {
     padding: 8px 16px;

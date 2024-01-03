@@ -5,6 +5,13 @@
         {% csrf_token %}
         <h3>Регистрация</h3>
 
+        <!-- Добавлен блок для уведомлений -->
+        {% if form.errors %}
+            <div class="notification {% if messages %} success {% else %} error {% endif %}">
+                {{ form.errors }}
+            </div>
+        {% endif %}
+
         <div class="flex-reg">
             <div class="lab-input">
                 <label for="{{ form.email.id_for_label }}">Email</label>
@@ -32,9 +39,12 @@
             <a href="{% url 'users:login' %}">Уже есть аккаунт</a>
         </div>
 
-        <div class="social">
-            <div class="go"><i class="fab fa-google"></i> Google</div>
-            <div class="fb"><i class="fab fa-vk"></i> В контакте</div>
+        <div class="go_to_the_main">
+            <a href="{% url 'index' %}">На главную</a>
         </div>
+{#        <div class="social">#}
+{#            <div class="go"><i class="fab fa-google"></i> Google</div>#}
+{#            <div class="fb"><i class="fab fa-vk"></i> В контакте</div>#}
+{#        </div>#}
     </form>
 {% endblock %}

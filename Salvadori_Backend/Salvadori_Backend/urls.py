@@ -19,12 +19,14 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 
-from products.views import index, product
+from products.views import index, product, basket_add, basket_remove
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='index'),
-    path('product/', product, name='product'),
+    path('product/<int:product_id>/', product, name='product'),
+    path('baskets/add/<int:product_id>/', basket_add, name='basket_add'),
+    path('baskets/remove/<int:basket_id>/', basket_remove, name='basket_remove'),
     path('users/', include('users.urls', namespace='users'))
 ]
 
