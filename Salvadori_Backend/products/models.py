@@ -5,6 +5,10 @@ class ProductCategory(models.Model):
     name = models.CharField(max_length=256)
     description = models.TextField(null=True, blank=True)
 
+    class Meta:
+        verbose_name = 'category'
+        verbose_name_plural = 'categories'
+
     def __str__(self):
         return self.name
 
@@ -20,6 +24,10 @@ class Product(models.Model):
     # Поле для отслеживания времени создания
     created_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        verbose_name = 'product'
+        verbose_name_plural = 'products'
+
     def __str__(self):
         return f'Продукт: {self.name} | Категории: {self.category}'
 
@@ -27,12 +35,21 @@ class ProductImage(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='additional_images')
 
+    class Meta:
+        verbose_name = 'Slider image'
+        verbose_name_plural = 'Slider image'
+
     def __str__(self):
         return f'Изображение для продукта: {self.product.name}'
 
 class Size(models.Model):
     name = models.CharField(max_length=50)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'size to product'
+        verbose_name_plural = 'size to products'
+
     def __str__(self):
         return self.product.name
 

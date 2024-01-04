@@ -24,18 +24,11 @@
                 <span class="line line3"></span>
             </div>
             <ul class="menu-items">
-                <a href="#shoes">
-                    <li>Обувь</li>
-                </a>
-                <a href="#clothes">
-                    <li>Одежда</li>
-                </a>
-                <a href="#">
-                    <li>Аксессуары</li>
-                </a>
-                <a href="#">
-                    <li>Коллекции</li>
-                </a>
+                {% for category in categories %}
+                    <a href="{% url 'category_paginator' category_id=category.id page_number=1 %}">
+                        <li>{{ category.name }}</li>
+                    </a>
+                {% endfor %}
                 <a href="#">
                     <li class="r">Индивидуальный заказ</li>
                 </a>
@@ -124,7 +117,7 @@
                 <i class='bx bxl-whatsapp'></i>
             </div>
         </div>
-        <p class="serticited_link">2023 Ⓒ SALVADORI <span>ВСЕ ПРАВА ЗАЩИЩЕНЫ</span></p>
+        <p class="serticited_link">2024 Ⓒ SALVADORI <span>ВСЕ ПРАВА ЗАЩИЩЕНЫ</span></p>
     </footer>
 
 

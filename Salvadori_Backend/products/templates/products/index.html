@@ -3,6 +3,7 @@
 
 {% block css %}
     <link rel="stylesheet" href="{% static 'vendor/style/slider.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'vendor/style/pagintaion.css' %}" type="text/css">
 {% endblock %}
 
 {% block js %}
@@ -55,10 +56,10 @@
     <!-- main -->
     <main>
         {% for category, items in products.items %}
-        <div class="testimonials" id="shoes">
+        <div class="testimonials" id="{{ category.id }}">
             <div class="general-heading">
-                <h1>{{ category }}</h1>
-                <a href="#">Все модели <i class='bx bxs-right-top-arrow-circle bx-tada'></i></a>
+                <h1>{{ category.name }}</h1>
+                <a href="{% url 'category_paginator' category_id=category.id page_number=1 %}">Все модели <i class='bx bxs-right-top-arrow-circle bx-tada'></i></a>
             </div>
             <div class="testimonial-carts">
                 {% for item in items %}
@@ -70,7 +71,7 @@
                         </a>
                     </div>
                     <div class="testimonial-description">
-                        <a href="{% url 'product' item.id %}" target="_blank">
+                        <a href="{% url 'product' item.id %}">
                             <h2 class="testimonial-title-desctiption">
                                  {{ item.name }}
                             </h2>
@@ -85,10 +86,64 @@
 
                 </div>
                 {% endfor %}
-
             </div>
         </div>
         {% endfor %}
+        {% if selected_category %}
+        <div class="testimonials" id="{{ selected_category.id }}">
+            <div class="general-heading">
+                <h1>{{ selected_category.name }}</h1>
+{#                <a href="#">Все модели <i class='bx bxs-right-top-arrow-circle bx-tada'></i></a>#}
+            </div>
+            <div class="testimonial-carts">
+                {% for item in products_paginator %}
+                    <!-- Отображение информации о товаре -->
+                    <div class="testimonial-cart">
+                        <div class="images">
+                            <img src="{{ item.main_image.url }}" alt=""><br>
+                            <a href="{% url 'basket_add' item.id %}" style="margin-top: 70%; font-size: 1.8em; color: #212323; position: relative;">
+                                <i class='bx bxs-cart-add' ></i>
+                            </a>
+                        </div>
+                        <div class="testimonial-description">
+                            <a href="{% url 'product' item.id %}">
+                                <h2 class="testimonial-title-desctiption">
+                                    {{ item.name }}
+                                </h2>
+                            </a>
+                            <div class="price-and-status">
+                                <span class="testimonial-price">от {{ item.price }}</span>
+                                {% if item.in_stock %}
+                                    <span>В НАЛИЧИИ</span>
+                                {% else %}
+                                    <span class="tag"> По запросу</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <a href="{% url 'product' item.id %}" class="testimonial-button-go-over">
+                            <button>Перейти</button>
+                        </a>
+                    </div>
+                    <!-- Завершение блока товара -->
+                {% endfor %}
+            </div>
+        </div>
+            <!--Pagination-->
+           <div class="pagination">
+                <a href="{% if products_paginator.has_previous %}{% url 'category_paginator' category_id=selected_category.id page_number=products_paginator.previous_page_number %}{% else %}{% endif %}" class="{% if not products_paginator.has_previous %} disabled {% endif %}">
+                    <i class='bx bx-chevron-left'></i>
+                </a>
+                {% for page in products_paginator.paginator.page_range %}
+                    <a href="{% url 'category_paginator' category_id=selected_category.id page_number=page %}" {% if products_paginator.number == page %}class="active"{% endif %}>{{ page }}</a>
+                {% endfor %}
+                <a href="{% if products_paginator.has_next %}{% url 'category_paginator' category_id=selected_category.id page_number=products_paginator.next_page_number %}{% else %}{% endif %}" class="{% if not products_paginator.has_next %} disabled {% endif %}">
+                    <i class='bx bx-chevron-right'></i>
+                </a>
+            </div>
+
+{#    {% else %}#}
+{#        <p>Нет товаров для отображения</p>#}
+    {% endif %}
     </main>
 {% endblock %}
 

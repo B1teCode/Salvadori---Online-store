@@ -24,6 +24,7 @@ from products.views import index, product, basket_add, basket_remove
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='index'),
+    path('category/<int:category_id>/page/<int:page_number>/', index, name='category_paginator'),
     path('product/<int:product_id>/', product, name='product'),
     path('baskets/add/<int:product_id>/', basket_add, name='basket_add'),
     path('baskets/remove/<int:basket_id>/', basket_remove, name='basket_remove'),

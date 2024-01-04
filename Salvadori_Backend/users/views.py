@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 
 from users.models import Users
 from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
-from products.models import Basket
+from products.models import Product, ProductCategory, Size, Basket
 
 # Create your views here.
 def login(request):
@@ -44,6 +44,8 @@ def registration(request):
 
 @login_required()
 def profile(request):
+    categories = ProductCategory.objects.all()
+
     if request.method == 'POST':
         form = UserProfileForm(instance=request.user, data=request.POST, files=request.FILES)
         if form.is_valid():
@@ -58,6 +60,7 @@ def profile(request):
         'title': 'Личный кабинет',
         'form': form,
         'baskets': baskets,
+        'categories': categories,
     }
     return render(request, 'users/profile.html', context)
 
