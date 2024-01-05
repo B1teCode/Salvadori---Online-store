@@ -34,7 +34,6 @@ def index(request, category_id=None, page_number=1):
         raise Http404("Категория не найдена")
 
 
-
 def product(request, product_id):
     categories = ProductCategory.objects.all()
     product = get_object_or_404(Product, pk=product_id)

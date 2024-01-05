@@ -2,8 +2,10 @@ from django.shortcuts import render, HttpResponseRedirect, redirect
 from django.contrib import auth, messages
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from common.views import TitleMixin
+from django.views.generic.base import TemplateView
 
-from users.models import Users
+from users.models import Users, EmailVerification
 from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
 from products.models import Product, ProductCategory, Size, Basket
 
@@ -67,3 +69,23 @@ def profile(request):
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect(reverse('index'))
+
+class EmailVerificationView(TitleMixin, TemplateView):
+    title = 'Salvadori - Подтверждение электронной почты'
+    template_name = 'users/email_verification.html'
+    
+    def get(self, request, *args, **kwargs):
+        code = kwargs['code']
+        user = Users.objects.get(email=kwargs['email'])
+        email_verifications = EmailVerification.objects.filter(user=user, code=code)
+        if email_verifications.exists() and not email_verifications.first().is_expired():
+            user.is_verified_email = True
+            user.save()
+            return super(EmailVerificationView, self).get(request, *args, **kwargs)
+        else:
+            return HttpResponseRedirect(reverse('index'))
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = ProductCategory.objects.all()
+        return context
