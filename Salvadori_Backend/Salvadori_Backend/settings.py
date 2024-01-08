@@ -66,6 +66,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'products.context_processors.baskets',
             ],
         },
     },
@@ -78,9 +79,13 @@ WSGI_APPLICATION = 'Salvadori_Backend.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": "salvadori_db",
+        "USER": "salvadori_username",
+        "PASSWORD": "salvad0r1",
+        "HOST": "localhost",
+        "PORT": "5432",
     }
 }
 
@@ -140,5 +145,3 @@ EMAIL_PORT = 465
 EMAIL_HOST_USER = 't3stprojects@yandex.ru'
 EMAIL_HOST_PASSWORD = 'hcywtlfcyrrbxvnh'
 EMAIL_USE_SSL = True
-
-# hcywtlfcyrrbxvnh

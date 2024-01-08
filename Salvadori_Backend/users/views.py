@@ -1,15 +1,17 @@
-from django.shortcuts import render, HttpResponseRedirect, redirect
 from django.contrib import auth, messages
-from django.urls import reverse
 from django.contrib.auth.decorators import login_required
-from common.views import TitleMixin
+from django.shortcuts import HttpResponseRedirect, render
+from django.urls import reverse
 from django.views.generic.base import TemplateView
 
-from users.models import Users, EmailVerification
-from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
-from products.models import Product, ProductCategory, Size, Basket
+from common.views import TitleMixin
+from products.models import ProductCategory
+from users.forms import UserLoginForm, UserProfileForm, UserRegistrationForm
+from users.models import EmailVerification, Users
 
 # Create your views here.
+
+
 def login(request):
     if request.method == 'POST':
         form = UserLoginForm(data=request.POST)
@@ -44,6 +46,7 @@ def registration(request):
     }
     return render(request, 'users/register.html', context)
 
+
 @login_required()
 def profile(request):
     categories = ProductCategory.objects.all()
@@ -56,24 +59,23 @@ def profile(request):
     else:
         form = UserProfileForm(instance=request.user)
 
-    baskets = Basket.objects.filter(user=request.user)
-
     context = {
         'title': 'Личный кабинет',
         'form': form,
-        'baskets': baskets,
         'categories': categories,
     }
     return render(request, 'users/profile.html', context)
+
 
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect(reverse('index'))
 
+
 class EmailVerificationView(TitleMixin, TemplateView):
     title = 'Salvadori - Подтверждение электронной почты'
     template_name = 'users/email_verification.html'
-    
+
     def get(self, request, *args, **kwargs):
         code = kwargs['code']
         user = Users.objects.get(email=kwargs['email'])

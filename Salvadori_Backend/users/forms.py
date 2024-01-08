@@ -2,10 +2,11 @@ import uuid
 from datetime import timedelta
 
 from django import forms
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm
+from django.contrib.auth.forms import (AuthenticationForm, UserChangeForm,
+                                       UserCreationForm)
 from django.utils.timezone import now
 
-from users.models import Users, EmailVerification
+from users.models import EmailVerification, Users
 
 
 class UserLoginForm(AuthenticationForm):
@@ -15,9 +16,11 @@ class UserLoginForm(AuthenticationForm):
     password = forms.CharField(widget=forms.PasswordInput(attrs={
         'placeholder': 'Введите пароль'
     }))
+
     class Meta:
         model = Users
         fields = ('username', 'password')
+
 
 class UserRegistrationForm(UserCreationForm):
     email = forms.CharField(widget=forms.EmailInput(attrs={
@@ -32,6 +35,7 @@ class UserRegistrationForm(UserCreationForm):
     password2 = forms.CharField(widget=forms.PasswordInput(attrs={
         'placeholder': 'Повторите пароль'
     }))
+
     class Meta:
         model = Users
         fields = ('email', 'username', 'password1', 'password2')
@@ -42,6 +46,7 @@ class UserRegistrationForm(UserCreationForm):
         record = EmailVerification.objects.create(code=uuid.uuid4(), user=user, expiration=expiration,)
         record.send_verification_email()
         return user
+
 
 class UserProfileForm(UserChangeForm):
     first_name = forms.CharField(widget=forms.TextInput(attrs={
@@ -81,6 +86,8 @@ class UserProfileForm(UserChangeForm):
     image = forms.ImageField(widget=forms.FileInput(attrs={
         'class': 'custom-file-input'
     }), required=False)
+
     class Meta:
         model = Users
-        fields = ('first_name', 'last_name', 'city', 'address', 'phone', 'telegram_account', 'username','email', 'image')
+        fields = ('first_name', 'last_name', 'city', 'address', 'phone',
+                  'telegram_account', 'username', 'email', 'image')

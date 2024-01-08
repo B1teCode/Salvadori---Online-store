@@ -1,11 +1,10 @@
-from django.http import HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.http import Http404
-
-from users.models import Users
-from products.models import Product, ProductCategory, Size, Basket
 from django.core.paginator import Paginator
+from django.http import Http404, HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
+
+from products.models import Basket, Product, ProductCategory
+
 
 def index(request, category_id=None, page_number=1):
     try:
@@ -20,7 +19,8 @@ def index(request, category_id=None, page_number=1):
             paginator = Paginator(products, per_page)
             products_paginator = paginator.page(page_number)
         else:
-            products = {category: Product.objects.filter(category=category).order_by('-created_at')[:4] for category in categories}
+            products = {category: Product.objects.filter(category=category).order_by(
+                '-created_at')[:4] for category in categories}
 
         context = {
             'title': 'Salvadori',
@@ -44,6 +44,7 @@ def product(request, product_id):
     }
     return render(request, 'products/product.html', context)
 
+
 @login_required()
 def basket_add(request, product_id):
     product = Product.objects.get(id=product_id)
@@ -61,6 +62,7 @@ def basket_add(request, product_id):
         basket.save()
 
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
 
 @login_required()
 def basket_remove(request, basket_id):
