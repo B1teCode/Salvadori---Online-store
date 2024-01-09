@@ -37,6 +37,7 @@ def index(request, category_id=None, page_number=1):
 def product(request, product_id):
     categories = ProductCategory.objects.all()
     product = get_object_or_404(Product, pk=product_id)
+
     context = {
         'title': f'Product | {product.name}',
         'product': product,

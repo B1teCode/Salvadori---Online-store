@@ -76,7 +76,7 @@
                                  {{ item.name }}
                             </h2>
                         </a>
-                        <div class="price-and-status"><span class="testimonial-price">от {{ item.price }}</span>
+                        <div class="price-and-status"><span class="testimonial-price">от {{ item.converted_price|floatformat:2 }}</span>
                             {% if item.in_stock %}<span>В НАЛИЧИИ</span>{% else %}<span class="tag"> По запросу</span>{% endif %}
                         </div>
                     </div>
@@ -112,7 +112,7 @@
                                 </h2>
                             </a>
                             <div class="price-and-status">
-                                <span class="testimonial-price">от {{ item.price }}</span>
+                                <span class="testimonial-price">от {{ item.converted_price|floatformat:2 }}</span>
                                 {% if item.in_stock %}
                                     <span>В НАЛИЧИИ</span>
                                 {% else %}

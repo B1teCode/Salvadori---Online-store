@@ -2,7 +2,7 @@ from django.contrib import admin
 
 # Register your models here.
 from products.models import (Basket, Product, ProductCategory, ProductImage,
-                             Size)
+                             Size, ExchangeRate, Tariff)
 
 
 class SliderImageInline(admin.TabularInline):
@@ -19,12 +19,13 @@ class SizeInline(admin.TabularInline):
 class ProductAdmin(admin.ModelAdmin):
     inlines = [SizeInline, SliderImageInline]
     list_display = ('name', 'in_stock', 'price', 'category')
-    fields = ('name', 'description', ('price', 'in_stock'), 'main_image', 'additional_images', 'category')
+    fields = ('name', 'description', ('price', 'in_stock', 'tariff'), 'main_image', 'additional_images', 'category')
     search_fields = ('name', 'category__name', 'price')
 
 
-# admin.site.register(Product, ProductAdmin)
 admin.site.register(ProductCategory)
+admin.site.register(ExchangeRate)
+admin.site.register(Tariff)
 
 
 class BasketAdmin(admin.TabularInline):

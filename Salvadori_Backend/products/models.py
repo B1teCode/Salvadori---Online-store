@@ -3,6 +3,13 @@ from django.db import models
 from users.models import Users
 
 
+class ExchangeRate(models.Model):
+    rate = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return f'Обменный курс: {self.rate}'
+
+
 class ProductCategory(models.Model):
     name = models.CharField(max_length=256)
     description = models.TextField(null=True, blank=True)
@@ -15,6 +22,14 @@ class ProductCategory(models.Model):
         return self.name
 
 
+class Tariff(models.Model):
+    category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return f'Тариф для {self.category.name}'
+
+
 class Product(models.Model):
     name = models.CharField(max_length=256)
     description = models.TextField(null=True, blank=True)
@@ -24,6 +39,7 @@ class Product(models.Model):
         'ProductImage', blank=True, related_name='additional_images_for_product')  # Дополнительные изображения
     in_stock = models.BooleanField(default=False)
     category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE)
+    tariff = models.ForeignKey(Tariff, on_delete=models.SET_NULL, null=True, blank=True)
 
     # Поле для отслеживания времени создания
     created_at = models.DateTimeField(auto_now_add=True)
@@ -34,6 +50,20 @@ class Product(models.Model):
 
     def __str__(self):
         return f'Продукт: {self.name} | Категории: {self.category}'
+
+    def converted_price(self):
+        exchange_rate = ExchangeRate.objects.first()
+
+        # Проверяем, существует ли курс обмена и не равен ли он 0
+        if exchange_rate and exchange_rate.rate != 0:
+            exchange_rate = exchange_rate.rate
+            tariff_price = self.tariff.price if self.tariff else 0
+            product_price_yuan = self.price * exchange_rate
+            return product_price_yuan + tariff_price
+        else:
+            # Если курс не добавлен или равен 0, суммируем цену по умолчанию и тариф
+            tariff_price = self.tariff.price if self.tariff else 0
+            return self.price + tariff_price
 
 
 class ProductImage(models.Model):
@@ -51,6 +81,7 @@ class ProductImage(models.Model):
 class Size(models.Model):
     name = models.CharField(max_length=50)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
 
     class Meta:
         verbose_name = 'size to product'
@@ -58,6 +89,20 @@ class Size(models.Model):
 
     def __str__(self):
         return self.product.name
+
+    def converted_price(self):
+        exchange_rate = ExchangeRate.objects.first()
+
+        # Проверяем, существует ли курс обмена и не равен ли он 0
+        if exchange_rate and exchange_rate.rate != 0:
+            exchange_rate = exchange_rate.rate
+            tariff_price = self.product.tariff.price if self.product.tariff else 0
+            size_price_yuan = self.price * exchange_rate
+            return size_price_yuan + tariff_price
+        else:
+            # Если курс не добавлен или равен 0, возвращаем цену размера с учетом тарифа
+            tariff_price = self.product.tariff.price if self.product.tariff else 0
+            return self.price + tariff_price if self.price is not None else tariff_price
 
 
 class BasketQuerySet(models.QuerySet):
@@ -80,5 +125,23 @@ class Basket(models.Model):
     def __str__(self):
         return f'Корзина для {self.user.email} | Продукт {self.product.name}'
 
+    def total_price(self):
+        exchange_rate = ExchangeRate.objects.first().rate
+        tariff_price = self.product.tariff.price if self.product.tariff else 0
+        product_price_yuan = self.product.price * exchange_rate
+
+        # Используйте цену выбранного размера, если размер выбран, в противном случае используйте цену продукта по умолчанию
+        # if self.size:
+        #     size_price = self.size.converted_price()
+        #     total_price = size_price * self.quantity
+        # else:
+        #     total_price = (product_price_yuan + tariff_price) * self.quantity
+
+        total_price = self.size.converted_price() * self.quantity if self.size else (
+                                                                    product_price_yuan + tariff_price) * self.quantity
+
+        return total_price
+
+    # Для совместимости с существующим кодом
     def sum(self):
-        return self.product.price * self.quantity
+        return self.total_price()

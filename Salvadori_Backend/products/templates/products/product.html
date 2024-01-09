@@ -58,7 +58,7 @@
             </div>
             <div class="product-other">
                 <h3>{{ product.name }}</h3>
-                <span>От {{ product.price }} ₽</span>
+                <span>От {{ product.converted_price|floatformat:2 }} ₽</span>
 
                 <p>РАЗМЕРЫ</p>
                 <div class="size">
@@ -67,7 +67,7 @@
                         {% for size in product.size_set.all %}
                             <div class="form_radio_btn">
                                 <input id="radio-{{ size.id }}" type="radio" name="size" value="{{ size.id }}">
-                                <label for="radio-{{ size.id }}">{{ size.name }}<br><span>От {{ product.price }} ₽</span></label>
+                                <label for="radio-{{ size.id }}">{{ size.name }}<br><span>От {{ size.converted_price|floatformat:2 }} ₽</span></label>
                             </div>
                         {% endfor %}
                     {% if product.in_stock %}
