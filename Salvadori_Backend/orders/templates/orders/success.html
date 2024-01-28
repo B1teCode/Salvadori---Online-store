@@ -1,0 +1,9 @@
+{% extends 'orders/base.html' %}
+
+{% block content %}
+    <div style="margin: 150px; display: flex; flex-direction: column; justify-content: center; align-items: center">
+        <h1 style="margin: 30px">Спасибо за заказ</h1>
+        <h3>Ваш заказ успешно оформлен</h3>
+        <a href="{% url 'users:profile' %}">Перейти в личный кабинет</a>
+    </div>
+{% endblock %}

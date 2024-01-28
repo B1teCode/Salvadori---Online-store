@@ -59,11 +59,11 @@ class Product(models.Model):
             exchange_rate = exchange_rate.rate
             tariff_price = self.tariff.price if self.tariff else 0
             product_price_yuan = self.price * exchange_rate
-            return product_price_yuan + tariff_price
+            return round(product_price_yuan + tariff_price, 2)
         else:
             # Если курс не добавлен или равен 0, суммируем цену по умолчанию и тариф
             tariff_price = self.tariff.price if self.tariff else 0
-            return self.price + tariff_price
+            return round(self.price + tariff_price, 2)
 
 
 class ProductImage(models.Model):
@@ -98,16 +98,16 @@ class Size(models.Model):
             exchange_rate = exchange_rate.rate
             tariff_price = self.product.tariff.price if self.product.tariff else 0
             size_price_yuan = self.price * exchange_rate
-            return size_price_yuan + tariff_price
+            return round(size_price_yuan + tariff_price, 2)
         else:
             # Если курс не добавлен или равен 0, возвращаем цену размера с учетом тарифа
             tariff_price = self.product.tariff.price if self.product.tariff else 0
-            return self.price + tariff_price if self.price is not None else tariff_price
+            return round(self.price + tariff_price, 2) if self.price is not None else round(tariff_price, 2)
 
 
 class BasketQuerySet(models.QuerySet):
     def total_sum(self):
-        return sum(basket.sum() for basket in self)
+        return round(sum(basket.sum() for basket in self), 2)
 
     def total_quantity(self):
         return sum(basket.quantity for basket in self)
@@ -140,7 +140,7 @@ class Basket(models.Model):
         total_price = self.size.converted_price() * self.quantity if self.size else (
                                                                     product_price_yuan + tariff_price) * self.quantity
 
-        return total_price
+        return round(total_price, 2)
 
     # Для совместимости с существующим кодом
     def sum(self):

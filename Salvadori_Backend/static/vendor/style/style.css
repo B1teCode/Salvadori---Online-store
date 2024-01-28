@@ -61,6 +61,7 @@ html *::-webkit-scrollbar-thumb {
   z-index: 12;
   top: 0px;
   background: #ffffff;
+  padding: 0;
 }
 
 .navbar-container {
@@ -122,6 +123,9 @@ html *::-webkit-scrollbar-thumb {
   width: 42px;
   height: 42px;
   border-radius: 50%;
+}
+.navbar .profile a:hover{
+  text-decoration: none;
 }
 .logo {
   order: 1;
@@ -419,61 +423,61 @@ main .testimonials .testimonial-cart .testimonial-button-go-over button {
     justify-content: space-around;
   }
 }
-section {
-  width: 1200px;
-  height: 550px;
-  margin: auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  gap: 40px;
-  border-radius: 16px;
-  background: #bbd2c5; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to right,
-    #292e49,
-    #536976,
-    #bbd2c5
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to left,
-    #292e49,
-    rgb(102, 23, 23),
-    rgb(167, 121, 37),
-    #5b7d91,
-    #90d6ae
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  margin-bottom: 70px;
-}
-section .logo {
-  order: 0;
-  font-size: 3.4em;
-  color: white;
-}
-section h2 {
-  color: white;
-  text-align: center;
-  width: 55%;
-  line-height: 1.5em;
-  letter-spacing: 0.08em;
-}
-section a {
-  background-color: white;
-  padding: 10px 125px;
-  border-radius: var(--border-radius);
-  text-transform: uppercase;
-  font-weight: 600;
-  text-align: center;
-}
-@media screen and (max-width: 1000px) {
-  section {
-    width: 90%;
-  }
-  section a {
-    width: 90%;
-  }
-}
+/*section {*/
+/*  width: 1200px;*/
+/*  height: 550px;*/
+/*  margin: auto;*/
+/*  display: flex;*/
+/*  justify-content: center;*/
+/*  align-items: center;*/
+/*  flex-direction: column;*/
+/*  gap: 40px;*/
+/*  border-radius: 16px;*/
+/*  background: #bbd2c5; !* fallback for old browsers *!*/
+/*  background: -webkit-linear-gradient(*/
+/*    to right,*/
+/*    #292e49,*/
+/*    #536976,*/
+/*    #bbd2c5*/
+/*  ); !* Chrome 10-25, Safari 5.1-6 *!*/
+/*  background: linear-gradient(*/
+/*    to left,*/
+/*    #292e49,*/
+/*    rgb(102, 23, 23),*/
+/*    rgb(167, 121, 37),*/
+/*    #5b7d91,*/
+/*    #90d6ae*/
+/*  ); !* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ *!*/
+/*  margin-bottom: 70px;*/
+/*}*/
+/*section .logo {*/
+/*  order: 0;*/
+/*  font-size: 3.4em;*/
+/*  color: white;*/
+/*}*/
+/*section h2 {*/
+/*  color: white;*/
+/*  text-align: center;*/
+/*  width: 55%;*/
+/*  line-height: 1.5em;*/
+/*  letter-spacing: 0.08em;*/
+/*}*/
+/*section a {*/
+/*  background-color: white;*/
+/*  padding: 10px 125px;*/
+/*  border-radius: var(--border-radius);*/
+/*  text-transform: uppercase;*/
+/*  font-weight: 600;*/
+/*  text-align: center;*/
+/*}*/
+/*@media screen and (max-width: 1000px) {*/
+/*  section {*/
+/*    width: 90%;*/
+/*  }*/
+/*  section a {*/
+/*    width: 90%;*/
+/*  }*/
+/*}*/
 footer {
   width: 100%;
   padding: 40px 60px 0px;
