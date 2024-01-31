@@ -1,8 +1,8 @@
 from django.contrib import admin
 
 # Register your models here.
-from products.models import (Basket, Product, ProductCategory, ProductImage,
-                             Size, ExchangeRate, Tariff)
+from products.models import (Basket, ExchangeRate, Product, ProductCategory,
+                             ProductImage, Size, Tariff)
 
 
 class SliderImageInline(admin.TabularInline):
@@ -19,7 +19,8 @@ class SizeInline(admin.TabularInline):
 class ProductAdmin(admin.ModelAdmin):
     inlines = [SizeInline, SliderImageInline]
     list_display = ('name', 'in_stock', 'price', 'category')
-    fields = ('name', 'description', ('price', 'in_stock', 'tariff'), 'main_image', 'additional_images', 'category')
+    fields = ('name', 'description', ('price', 'in_stock', 'tariff'), 'main_image', 'additional_images',
+              'stripe_product_price_id', 'category')
     search_fields = ('name', 'category__name', 'price')
 
 

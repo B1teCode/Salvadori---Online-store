@@ -19,6 +19,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 
+from orders.views import stripe_webhook_view
 from products.views import basket_add, basket_remove, index, product
 
 urlpatterns = [
@@ -29,7 +30,9 @@ urlpatterns = [
     path('baskets/add/<int:product_id>/', basket_add, name='basket_add'),
     path('baskets/remove/<int:basket_id>/', basket_remove, name='basket_remove'),
     path('users/', include('users.urls', namespace='users')),
-    path('orders/', include('orders.urls', namespace='orders'))
+    path('orders/', include('orders.urls', namespace='orders')),
+    path('webhook/stripe/', stripe_webhook_view, name='stripe_webhook'),
+
 ]
 
 if settings.DEBUG:

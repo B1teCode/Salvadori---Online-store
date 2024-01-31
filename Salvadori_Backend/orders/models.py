@@ -1,7 +1,10 @@
 from django.db import models
 
+from products.models import Basket
 from users.models import Users
+
 # Create your models here.
+
 
 class Order(models.Model):
     CREATED = 0
@@ -15,7 +18,6 @@ class Order(models.Model):
         (DELIVERED, 'Доставлен'),
     )
 
-
     first_name = models.CharField(max_length=64)
     last_name = models.CharField(max_length=64)
     email = models.EmailField(max_length=256)
@@ -27,3 +29,13 @@ class Order(models.Model):
 
     def __str__(self):
         return f'Заказ #{self.id}. {self.first_name} {self.last_name}'
+
+    def update_after_payment(self):
+        baskets = Basket.objects.filter(user=self.initiator)
+        self.status = self.PAID
+        self.basket_history = {
+            'purchased_items': [basket.de_json() for basket in baskets],
+            'total_sum': float(baskets.total_sum()),
+        }
+        baskets.delete()
+        self.save()

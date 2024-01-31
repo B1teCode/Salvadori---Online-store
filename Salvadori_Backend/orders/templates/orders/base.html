@@ -36,7 +36,21 @@
         </ul>
         <div class="profile">
         {% if user.is_authenticated %}
-            <a href="{% url 'users:logout' %}" class="logout-login">ВЫЙТИ</a>
+            <div class="btn-group">
+              <a class="btn btn-block dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                {{ user.username }}
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{% url 'users:profile' %}">Профиль</a></li>
+                <li><a class="dropdown-item" href="{% url 'orders:orders_list' %}">Заказы</a></li>
+                  {% if request.user.is_staff %}
+                    <li><a class="dropdown-item" href="{% url 'admin:index' %}">Админ панель</a></li>
+                  {% endif %}
+                <li><hr class="dropdown-divider"></li>
+                <li><a href="{% url 'users:logout' %}" class="dropdown-item">ВЫЙТИ</a></li>
+              </ul>
+            </div>
+
             <a href="{% url 'users:profile' %}">
                 {% if user.image %}
                     <img src="{{ user.image.url }}" alt="">
@@ -47,7 +61,6 @@
         {% else %}
             <a href="{% url 'users:login' %}" class="logout-login">ВОЙТИ</a>
         {% endif %}
-
         </div>
         <h1 class="logo"><a href="{% url 'index' %}">Salvadori</a></h1>
 

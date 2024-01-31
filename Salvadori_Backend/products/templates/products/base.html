@@ -63,18 +63,11 @@
             <div class="navigate">
                 <h3>Разделы</h3>
                 <ul class="">
-                    <a href="#shoes">
-                        <li>Обувь</li>
-                    </a>
-                    <a href="#clothes">
-                        <li>Одежда</li>
-                    </a>
-                    <a href="#">
-                        <li>Аксессуары</li>
-                    </a>
-                    <a href="#">
-                        <li>Коллекции</li>
-                    </a>
+                    {% for category in categories %}
+                        <a href="{% url 'category_paginator' category_id=category.id page_number=1 %}">
+                            <li>{{ category.name }}</li>
+                        </a>
+                    {% endfor %}
                 </ul>
             </div>
 

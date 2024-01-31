@@ -1,7 +1,9 @@
-from django.test import TestCase
 from django.contrib.auth.models import User
+from django.test import TestCase
 from django.urls import reverse
-from .models import ProductCategory, Product, Basket
+
+from .models import Basket, Product, ProductCategory
+
 
 class ProductsTestCase(TestCase):
     def setUp(self):
