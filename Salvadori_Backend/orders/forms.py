@@ -1,5 +1,6 @@
 from django import forms
 
+
 from orders.models import Order
 
 
@@ -18,8 +19,11 @@ class OrderForm(forms.ModelForm):
     }))
     address = forms.CharField(widget=forms.TextInput(attrs={
         'class': 'form-control rounded-pill',
-        'placeholder': 'Россия, Москва, ул. Мира, дом 6'
+        'placeholder': 'Россия, Москва, ул. Мира, дом 6',
+        # 'value': Users.objects.get(id)
     }))
+
+
 
     class Meta:
         model = Order

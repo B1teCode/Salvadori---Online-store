@@ -29,7 +29,7 @@
                         <li>{{ category.name }}</li>
                     </a>
                 {% endfor %}
-                <a href="#">
+                <a href="{% url 'orders:custom_order_create' %}">
                     <li class="r">Индивидуальный заказ</li>
                 </a>
             </ul>

@@ -104,8 +104,16 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="form-group">
-                            <label class="small mb-1" for="{{ form.address.id_for_label }}">Адрес СДЭК или Boxbery</label>
-                        {{ form.address }}
+                            <label class="small mb-1" for="{{ form.address.id_for_label }}"
+                                   style="display: flex; justify-content: space-between">
+                                Адрес СДЭК или Boxbery
+                                {% if user.address and not user.verified_address %}
+                                    <small class="text-warning" style="font-size: 0.7rem;">Ожидает подтверждения</small>
+                                {% elif user.address and user.verified_address %}
+                                    <small class="text-success" style="font-size: 0.8rem;">Подтверждена</small>
+                                {% endif %}
+                            </label>
+                            {{ form.address }}
                         </div>
                     </div>
                     <div class="col-lg-6">

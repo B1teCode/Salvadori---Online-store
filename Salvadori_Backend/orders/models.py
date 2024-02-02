@@ -39,3 +39,32 @@ class Order(models.Model):
         }
         baskets.delete()
         self.save()
+
+class CustomOrder(models.Model):
+    CREATED = 0
+    AWAITING_PAYMENT = 1
+    PAID = 2
+    ON_WAY = 3
+    DELIVERED = 4
+    STATUSES = (
+        (CREATED, 'В обработке'),
+        (AWAITING_PAYMENT, 'Ожидает оплаты'),
+        (PAID, 'Оплачен'),
+        (ON_WAY, 'В пути'),
+        (DELIVERED, 'Доставлен'),
+    )
+    user = models.ForeignKey(to=Users, on_delete=models.CASCADE)
+    product_name = models.CharField(max_length=256)
+    product_photo = models.ImageField(upload_to='custom_orders_photos')
+    product_size = models.CharField(max_length=50, null=True, blank=True)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    stripe_custom_order_price_id = models.CharField(max_length=128, null=True, blank=True)
+    status = models.SmallIntegerField(default=CREATED, choices=STATUSES)
+    created_timestamp = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'custom order'
+        verbose_name_plural = 'custom orders'
+
+    def __str__(self):
+        return f'Индивидуальный заказ для {self.user.email} | Продукт {self.product_name}'

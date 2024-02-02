@@ -94,6 +94,14 @@ class OrderCreateView(TitleMixin, CreateView):
         context = super().get_context_data(**kwargs)
         categories = ProductCategory.objects.all()
         context['categories'] = categories
+
+        # Добавляем форму с начальным значением address
+        if self.request.user.is_authenticated:
+            user_address = self.request.user.address
+        else:
+            user_address = None
+
+        context['order_form'] = OrderForm(initial={'address': user_address})
         return context
 
 
