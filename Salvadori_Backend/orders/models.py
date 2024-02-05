@@ -43,6 +43,7 @@ class Order(models.Model):
         baskets.delete()
         self.save()
 
+
 class CustomOrder(models.Model):
     user = models.ForeignKey(to=Users, on_delete=models.CASCADE)
     product = models.ForeignKey(

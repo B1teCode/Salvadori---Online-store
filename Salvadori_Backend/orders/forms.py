@@ -1,7 +1,6 @@
 from django import forms
 
-
-from orders.models import Order, CustomOrder
+from orders.models import CustomOrder, Order
 
 
 class OrderForm(forms.ModelForm):
@@ -23,11 +22,10 @@ class OrderForm(forms.ModelForm):
         # 'value': Users.objects.get(id)
     }))
 
-
-
     class Meta:
         model = Order
         fields = ('first_name', 'last_name', 'email', 'address')
+
 
 class CustomOrderForm(forms.ModelForm):
     product_name = forms.CharField(widget=forms.TextInput(attrs={

@@ -9,7 +9,6 @@ from users.models import EmailVerification, Users
 @admin.register(Users)
 class UserAdmin(admin.ModelAdmin):
     list_display = ('username', 'email')
-    # fields = ()
     inlines = (BasketAdmin,)
 
 

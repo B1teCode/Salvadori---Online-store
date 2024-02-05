@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from orders.models import Order, CustomOrder
+from orders.models import CustomOrder, Order
 
 # Register your models here.
 
@@ -15,6 +15,7 @@ class OrderAdmin(admin.ModelAdmin):
         'basket_history', 'status', 'initiator',
     )
     readonly_fields = ('id', 'created')
+
 
 @admin.register(CustomOrder)
 class CustomOrderAdmin(admin.ModelAdmin):

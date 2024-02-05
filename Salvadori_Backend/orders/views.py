@@ -2,7 +2,6 @@ from http import HTTPStatus
 
 import stripe
 from django.conf import settings
-from django.contrib.auth.decorators import login_required
 from django.db.models import Count
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
@@ -13,8 +12,8 @@ from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
 
 from common.views import TitleMixin
-from orders.forms import OrderForm, CustomOrderForm
-from orders.models import Order, CustomOrder
+from orders.forms import CustomOrderForm, OrderForm
+from orders.models import CustomOrder, Order
 from products.models import Basket, ProductCategory
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -125,6 +124,7 @@ class OrderCreateView(TitleMixin, CreateView):
 
         context['order_form'] = OrderForm(initial={'address': user_address})
         return context
+
 
 @csrf_exempt
 def stripe_webhook_view(request):

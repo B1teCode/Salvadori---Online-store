@@ -4,8 +4,9 @@ from django.db.models import Count
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 
-from products.models import Basket, Product, ProductCategory, ExternalImage
 from orders.models import CustomOrder
+from products.models import Basket, ExternalImage, Product, ProductCategory
+
 
 def index(request, category_id=None, page_number=1):
     try:
@@ -51,7 +52,8 @@ def index(request, category_id=None, page_number=1):
                 products_paginator = paginator.page(page_number)
             else:
                 categories = categories.exclude(name='Индивидуальный заказ')
-                products = {category: Product.objects.filter(category=category).order_by('-created_at')[:4] for category in categories}
+                products = {category: Product.objects.filter(category=category).order_by(
+                    '-created_at')[:4] for category in categories}
 
         # Получение объектов ExternalImage
         external_images = ExternalImage.objects.all()
@@ -67,6 +69,7 @@ def index(request, category_id=None, page_number=1):
         return render(request, 'products/index.html', context)
     except ProductCategory.DoesNotExist:
         raise Http404("Категория не найдена")
+
 
 def product(request, product_id):
     categories_with_count = ProductCategory.objects.annotate(product_count=Count('product'))

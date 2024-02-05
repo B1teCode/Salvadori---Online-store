@@ -237,5 +237,6 @@ class ExternalImage(models.Model):
 
     class Meta:
         verbose_name_plural = 'Постеры'
+
     def __str__(self):
         return f'External Image {self.id}'

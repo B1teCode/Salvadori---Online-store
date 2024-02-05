@@ -14,6 +14,7 @@ class Users(AbstractUser):
     city = models.CharField(max_length=50, null=True, blank=True)
     address = models.CharField(max_length=100, null=True, blank=True)
     verified_address = models.BooleanField(default=False)
+    unverified_address = models.BooleanField(default=False)
     phone = models.CharField(max_length=20, null=True, blank=True)
     telegram_account = models.URLField(null=True, blank=True)
     is_verified_email = models.BooleanField(default=False)
