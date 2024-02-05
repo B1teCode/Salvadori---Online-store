@@ -10,6 +10,9 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 class ExchangeRate(models.Model):
     rate = models.DecimalField(max_digits=10, decimal_places=2)
 
+    class Meta:
+        verbose_name_plural = 'Курс валюты'
+
     def __str__(self):
         return f'Обменный курс: {self.rate}'
 
@@ -29,6 +32,9 @@ class ProductCategory(models.Model):
 class Tariff(models.Model):
     category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=10, decimal_places=2)
+
+    class Meta:
+        verbose_name_plural = 'Тарифы'
 
     def __str__(self):
         return f'Тариф для {self.category.name}'
@@ -223,3 +229,13 @@ class Basket(models.Model):
             'sum': float(self.sum()),
         }
         return basket_item
+
+
+class ExternalImage(models.Model):
+    image = models.ImageField(upload_to='external_images', blank=True, null=True)
+    external_link = models.URLField(blank=True, null=True)
+
+    class Meta:
+        verbose_name_plural = 'Постеры'
+    def __str__(self):
+        return f'External Image {self.id}'

@@ -4,7 +4,7 @@ from django.db.models import Count
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 
-from products.models import Basket, Product, ProductCategory
+from products.models import Basket, Product, ProductCategory, ExternalImage
 from orders.models import CustomOrder
 
 def index(request, category_id=None, page_number=1):
@@ -53,12 +53,16 @@ def index(request, category_id=None, page_number=1):
                 categories = categories.exclude(name='Индивидуальный заказ')
                 products = {category: Product.objects.filter(category=category).order_by('-created_at')[:4] for category in categories}
 
+        # Получение объектов ExternalImage
+        external_images = ExternalImage.objects.all()
+
         context = {
             'title': 'Salvadori',
             'categories': categories,
             'selected_category': selected_category,
             'products': products,
             'products_paginator': products_paginator,
+            'external_images': external_images,
         }
         return render(request, 'products/index.html', context)
     except ProductCategory.DoesNotExist:

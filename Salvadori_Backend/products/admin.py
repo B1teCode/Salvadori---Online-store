@@ -2,7 +2,7 @@ from django.contrib import admin
 
 # Register your models here.
 from products.models import (Basket, ExchangeRate, Product, ProductCategory,
-                             ProductImage, Size, Tariff)
+                             ProductImage, Size, Tariff, ExternalImage)
 
 
 class SliderImageInline(admin.TabularInline):
@@ -34,3 +34,5 @@ class BasketAdmin(admin.TabularInline):
     fields = ('product', 'quantity', 'created_timestamp')
     readonly_fields = ('created_timestamp', 'product')
     extra = 0
+
+admin.site.register(ExternalImage)

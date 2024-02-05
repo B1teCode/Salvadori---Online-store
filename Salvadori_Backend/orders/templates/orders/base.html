@@ -26,22 +26,13 @@
         </div>
         <ul class="menu-items" style="position: relative; top: 8px">
             {% for category in categories %}
-        {% if category.name == 'Индивидуальный заказ' %}
-            {% if products.Индивидуальный_заказ %}
                 <a href="{% url 'category_paginator' category_id=category.id page_number=1 %}">
                     <li>{{ category.name }}</li>
                 </a>
-            {% else %}
+            {% endfor %}
                 <a href="{% url 'orders:custom_order' %}">
-                    <li>{{ category.name }}</li>
+                    <li>Оформить заказ</li>
                 </a>
-            {% endif %}
-        {% else %}
-            <a href="{% url 'category_paginator' category_id=category.id page_number=1 %}">
-                <li>{{ category.name }}</li>
-            </a>
-        {% endif %}
-    {% endfor %}
         </ul>
         <div class="profile">
         {% if user.is_authenticated %}

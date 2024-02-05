@@ -27,6 +27,9 @@ class Order(models.Model):
     status = models.SmallIntegerField(default=CREATED, choices=STATUSES)
     initiator = models.ForeignKey(to=Users, on_delete=models.CASCADE)
 
+    class Meta:
+        verbose_name_plural = 'Заказы'
+
     def __str__(self):
         return f'Заказ #{self.id}. {self.first_name} {self.last_name}'
 
@@ -57,7 +60,7 @@ class CustomOrder(models.Model):
 
     class Meta:
         verbose_name = 'custom order'
-        verbose_name_plural = 'custom orders'
+        verbose_name_plural = 'Индивидуальные заявки'
 
     def __str__(self):
-        return f'Индивидуальный заказ для {self.user.email} | Продукт {self.product_name}'
+        return f'Индивидуальная заявка для {self.user.email} | Продукт {self.product_name}'

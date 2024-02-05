@@ -10,48 +10,46 @@
 {% block js %}
     <script src="{% static 'vendor/js/script.js' %}"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // инициализация слайдера
+    document.addEventListener('DOMContentLoaded', function () {
+        // Проверка количества элементов в модели ExternalImage
+        var externalImageCount = {{ external_images|length }};
+
+        // Если в модели есть более одного элемента, инициализируем слайдер
+        if (externalImageCount > 1) {
             var slider = new SimpleAdaptiveSlider('.slider', {
                 autoplay: true,
                 interval: 10000,
             });
-        });
-    </script>
+        }
+    });
+</script>
 {% endblock %}
 
 {% block content %}
     <!-- header-slider -->
     <header>
         <!-- Разметка слайдера -->
+    {% if external_images %}
         <div class="slider">
             <div class="slider__wrapper">
                 <div class="slider__items">
-                    <div class="slider__item">
-                        <a href="#">
-                            <img class="img-fluid" src="{% static 'vendor/img/1.png' %}" alt="..." loading="lazy">
-                        </a>
-                    </div>
-                    <div class="slider__item">
-                        <a href="#">
-                            <img class="img-fluid" src="{% static 'vendor/img/2.jpg' %}" alt="..." loading="lazy">
-                        </a>
-                    </div>
-                    <div class="slider__item">
-                        <a href="#">
-                            <img class="img-fluid" src="{% static 'vendor/img/3.jpg' %}" alt="..." loading="lazy">
-                        </a>
-                    </div>
-                    <div class="slider__item">
-                        <a href="#">
-                            <img class="img-fluid" src="{% static 'vendor/img/4.jpg' %}" alt="..." loading="lazy">
-                        </a>
-                    </div>
+                    {% for external_image in external_images %}
+                        <div class="slider__item">
+                            {% if external_image.external_link %}
+                                <a href="{{ external_image.external_link }}" target="_blank">
+                            {% endif %}
+                            <img class="img-fluid" src="{% if external_image.image %}{{ external_image.image.url }}{% endif %}" alt="..." loading="lazy">
+                            {% if external_image.external_link %}
+                                </a>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
             <a class="slider__control slider__control_prev" href="#" role="button" data-slide="prev"></a>
             <a class="slider__control slider__control_next" href="#" role="button" data-slide="next"></a>
         </div>
+    {% endif %}
     </header>
 
     <!-- main -->
