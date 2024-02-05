@@ -1,10 +1,12 @@
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
+from django.db.models import Count
 from django.shortcuts import HttpResponseRedirect, render
 from django.urls import reverse
 from django.views.generic.base import TemplateView
 
 from common.views import TitleMixin
+from orders.models import CustomOrder
 from products.models import ProductCategory
 from users.forms import UserLoginForm, UserProfileForm, UserRegistrationForm
 from users.models import EmailVerification, Users
@@ -49,7 +51,12 @@ def registration(request):
 
 @login_required()
 def profile(request):
-    categories = ProductCategory.objects.all()
+    categories_with_count = ProductCategory.objects.annotate(product_count=Count('product'))
+    categories = categories_with_count.filter(product_count__gt=0)
+
+    products = CustomOrder.objects.filter(user=request.user).values_list('product', flat=True)
+    if not products.exists():
+        categories = categories.exclude(name='Индивидуальный заказ')
 
     if request.method == 'POST':
         form = UserProfileForm(instance=request.user, data=request.POST, files=request.FILES)
@@ -89,5 +96,10 @@ class EmailVerificationView(TitleMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['categories'] = ProductCategory.objects.all()
+        categories_with_count = ProductCategory.objects.annotate(product_count=Count('product'))
+        categories = categories_with_count.filter(product_count__gt=0)
+        products = CustomOrder.objects.filter(user=self.request.user).values_list('product', flat=True)
+        if not products.exists():
+            categories = categories.exclude(name='Индивидуальный заказ')
+        context['categories'] = categories
         return context

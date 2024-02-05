@@ -60,7 +60,9 @@
         <div class="testimonials" id="{{ category.id }}">
             <div class="general-heading">
                 <h1>{{ category.name }}</h1>
-                <a href="{% url 'category_paginator' category_id=category.id page_number=1 %}">Все модели <i class='bx bxs-right-top-arrow-circle bx-tada'></i></a>
+                {% if category.id %}
+                    <a href="{% url 'category_paginator' category_id=category.id page_number=1 %}">Все модели <i class='bx bxs-right-top-arrow-circle bx-tada'></i></a>
+                {% endif %}
             </div>
             <div class="testimonial-carts">
                 {% for item in items %}
@@ -94,6 +96,11 @@
         <div class="testimonials" id="{{ selected_category.id }}">
             <div class="general-heading">
                 <h1>{{ selected_category.name }}</h1>
+                {% if selected_category.name == 'Индивидуальный заказ' %}
+                    <a href="{% url 'orders:custom_order' %}">Оформить заказ <i class='bx bxs-right-top-arrow-circle bx-tada'></i></a>
+                    {% else %}
+                    hello
+                {% endif %}
 {#                <a href="#">Все модели <i class='bx bxs-right-top-arrow-circle bx-tada'></i></a>#}
             </div>
             <div class="testimonial-carts">

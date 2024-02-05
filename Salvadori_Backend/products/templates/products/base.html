@@ -29,9 +29,9 @@
                         <li>{{ category.name }}</li>
                     </a>
                 {% endfor %}
-                <a href="{% url 'orders:custom_order_create' %}">
-                    <li class="r">Индивидуальный заказ</li>
-                </a>
+                    <a href="{% url 'orders:custom_order' %}">
+                        <li>Индивидуальный заказ</li>
+                    </a>
             </ul>
             <div class="profile">
             {% if user.is_authenticated %}

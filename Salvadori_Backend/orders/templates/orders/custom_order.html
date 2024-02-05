@@ -1,0 +1,17 @@
+{% extends 'orders/base.html' %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h2>Оформление индивидуального заказа</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <!-- Вывод всех полей формы в виде параграфов -->
+            {{ form.as_p }}
+
+            <!-- Дополнительные элементы или стилизация, если нужно -->
+
+            <button type="submit" class="btn btn-dark mt-2">Оформить заказ</button>
+        </form>
+    </div>
+{% endblock %}

@@ -1,6 +1,6 @@
 from django.db import models
 
-from products.models import Basket
+from products.models import Basket, Product
 from users.models import Users
 
 # Create your models here.
@@ -41,25 +41,18 @@ class Order(models.Model):
         self.save()
 
 class CustomOrder(models.Model):
-    CREATED = 0
-    AWAITING_PAYMENT = 1
-    PAID = 2
-    ON_WAY = 3
-    DELIVERED = 4
-    STATUSES = (
-        (CREATED, 'В обработке'),
-        (AWAITING_PAYMENT, 'Ожидает оплаты'),
-        (PAID, 'Оплачен'),
-        (ON_WAY, 'В пути'),
-        (DELIVERED, 'Доставлен'),
-    )
     user = models.ForeignKey(to=Users, on_delete=models.CASCADE)
+    product = models.ForeignKey(
+        to=Product,
+        on_delete=models.CASCADE,
+        null=True,  # Разрешим поле быть пустым
+        blank=True,
+        # limit_choices_to={'category': 'Индивидуальный заказ'},
+    )
     product_name = models.CharField(max_length=256)
     product_photo = models.ImageField(upload_to='custom_orders_photos')
     product_size = models.CharField(max_length=50, null=True, blank=True)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-    stripe_custom_order_price_id = models.CharField(max_length=128, null=True, blank=True)
-    status = models.SmallIntegerField(default=CREATED, choices=STATUSES)
+    product_description = models.TextField(null=True, blank=True)
     created_timestamp = models.DateTimeField(auto_now_add=True)
 
     class Meta:

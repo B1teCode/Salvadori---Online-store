@@ -2,6 +2,8 @@ from http import HTTPStatus
 
 import stripe
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
+from django.db.models import Count
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
@@ -11,8 +13,8 @@ from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
 
 from common.views import TitleMixin
-from orders.forms import OrderForm
-from orders.models import Order
+from orders.forms import OrderForm, CustomOrderForm
+from orders.models import Order, CustomOrder
 from products.models import Basket, ProductCategory
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -24,7 +26,11 @@ class SuccessTemplateView(TitleMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        categories = ProductCategory.objects.all()
+        categories_with_count = ProductCategory.objects.annotate(product_count=Count('product'))
+        categories = categories_with_count.filter(product_count__gt=0)
+        products = CustomOrder.objects.filter(user=self.request.user).values_list('product', flat=True)
+        if not products.exists():
+            categories = categories.exclude(name='Индивидуальный заказ')
         context['categories'] = categories
         return context
 
@@ -34,7 +40,11 @@ class CanceledTemplateView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        categories = ProductCategory.objects.all()
+        categories_with_count = ProductCategory.objects.annotate(product_count=Count('product'))
+        categories = categories_with_count.filter(product_count__gt=0)
+        products = CustomOrder.objects.filter(user=self.request.user).values_list('product', flat=True)
+        if not products.exists():
+            categories = categories.exclude(name='Индивидуальный заказ')
         context['categories'] = categories
         return context
 
@@ -51,7 +61,11 @@ class OrderListView(TitleMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        categories = ProductCategory.objects.all()
+        categories_with_count = ProductCategory.objects.annotate(product_count=Count('product'))
+        categories = categories_with_count.filter(product_count__gt=0)
+        products = CustomOrder.objects.filter(user=self.request.user).values_list('product', flat=True)
+        if not products.exists():
+            categories = categories.exclude(name='Индивидуальный заказ')
         context['categories'] = categories
         return context
 
@@ -63,7 +77,11 @@ class OrderDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(OrderDetailView, self).get_context_data(**kwargs)
         context['title'] = f'SALVADORI - Заказ #{self.object.id}'
-        categories = ProductCategory.objects.all()
+        categories_with_count = ProductCategory.objects.annotate(product_count=Count('product'))
+        categories = categories_with_count.filter(product_count__gt=0)
+        products = CustomOrder.objects.filter(user=self.request.user).values_list('product', flat=True)
+        if not products.exists():
+            categories = categories.exclude(name='Индивидуальный заказ')
         context['categories'] = categories
         return context
 
@@ -92,7 +110,11 @@ class OrderCreateView(TitleMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        categories = ProductCategory.objects.all()
+        categories_with_count = ProductCategory.objects.annotate(product_count=Count('product'))
+        categories = categories_with_count.filter(product_count__gt=0)
+        products = CustomOrder.objects.filter(user=self.request.user).values_list('product', flat=True)
+        if not products.exists():
+            categories = categories.exclude(name='Индивидуальный заказ')
         context['categories'] = categories
 
         # Добавляем форму с начальным значением address
@@ -103,7 +125,6 @@ class OrderCreateView(TitleMixin, CreateView):
 
         context['order_form'] = OrderForm(initial={'address': user_address})
         return context
-
 
 @csrf_exempt
 def stripe_webhook_view(request):
@@ -138,3 +159,24 @@ def fulfill_order(session):
     order_id = int(session.metadata.order_id)
     order = Order.objects.get(id=order_id)
     order.update_after_payment()
+
+
+class CustomOrderCreateView(TitleMixin, CreateView):
+    template_name = 'orders/custom_order.html'
+    form_class = CustomOrderForm
+    success_url = reverse_lazy('index')
+    title = 'SALVADORI - Оформление Индивидуального заказа'
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(CustomOrderCreateView, self).form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        categories_with_count = ProductCategory.objects.annotate(product_count=Count('product'))
+        categories = categories_with_count.filter(product_count__gt=0)
+        products = CustomOrder.objects.filter(user=self.request.user).values_list('product', flat=True)
+        if not products.exists():
+            categories = categories.exclude(name='Индивидуальный заказ')
+        context['categories'] = categories
+        return context
