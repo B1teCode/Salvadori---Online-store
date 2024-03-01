@@ -2,7 +2,7 @@ from django.urls import path
 
 from orders.views import (CanceledTemplateView, CustomOrderCreateView,
                           OrderCreateView, OrderDetailView, OrderListView,
-                          SuccessTemplateView)
+                          SuccessTemplateView, PaymentView)
 
 app_name = 'orders'
 
@@ -13,4 +13,5 @@ urlpatterns = [
     path('order/<int:pk>/', OrderDetailView.as_view(), name='order'),
     path('order-success/', SuccessTemplateView.as_view(), name='order_success'),
     path('order-canceled/', CanceledTemplateView.as_view(), name='order_canceled'),
+    path('payment/', PaymentView.as_view(), name='payment'),
 ]

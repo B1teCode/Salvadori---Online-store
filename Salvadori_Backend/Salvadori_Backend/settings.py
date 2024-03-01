@@ -155,10 +155,4 @@ EMAIL_HOST_USER = 't3stprojects@yandex.ru'
 EMAIL_HOST_PASSWORD = 'hcywtlfcyrrbxvnh'
 EMAIL_USE_SSL = True
 
-# Stripe
-
-STRIPE_PUBLIC_KEY = 'pk_test_51OeHtlJ5qNnZekuE5FwXNqd1dbR7CxK7muMbrw3nMZJpNFRlrjoPYbt6Q7IkQAS4buucs1CWH1ADCI0NYDQtGaox00KkWXkcMJ'
-STRIPE_SECRET_KEY = 'sk_test_51OeHtlJ5qNnZekuEyuHXco28qmQHScsmELnkYwYgYCdH21RAjduwsOTU1QpIsEkERByGRCkimttPiEYNyJgYB9KI00fvFdDlCg'
-STRIPE_WEBHOOK_SECRET = 'whsec_93a8e6e231ae25fcef8cd4c7ead667e6a922c92ec610fe710d63b9e1ebdb33f1'
-
 # .\stripe listen --forward-to 127.0.0.1:8000/webhook/stripe/

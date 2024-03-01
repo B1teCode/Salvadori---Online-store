@@ -55,7 +55,7 @@ html *::-webkit-scrollbar-thumb {
 
 .navbar {
   position: fixed;
-  width: 100%;
+  width: 100% !important;
   margin: auto;
   color: #000;
   z-index: 12;
@@ -65,9 +65,10 @@ html *::-webkit-scrollbar-thumb {
 }
 
 .navbar-container {
+  width: 100% !important;
   display: flex;
   justify-content: space-between;
-  padding: 10px 0px;
+  padding: 10px 20px !important;
   align-items: center;
 }
 .menu-items {
@@ -285,13 +286,9 @@ html *::-webkit-scrollbar-thumb {
 }
 header {
   max-width: 1200px;
+  width: 90%;
   margin: auto;
   margin-top: 75px;
-}
-@media screen and (max-width: 1000px) {
- header{
-  width: 90%;
- } 
 }
 main {
   max-width: 1200px;
@@ -326,9 +323,9 @@ main .testimonials .general-heading a i {
 main .testimonials .testimonial-carts {
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-wrap: wrap;
-  gap: 30px;
+  gap: 4rem;
 }
 main .testimonials .testimonial-cart {
   width: 250px;
@@ -364,11 +361,45 @@ main .testimonials .testimonial-cart .price-and-status {
   font-weight: 600;
   margin-bottom: 1rem;
 }
-/* main .testimonials .testimonial-cart .price-and-status .tag{
-  font-size: 0.8em;
-} */
+ main .testimonials .testimonial-cart .price-and-status .tag1{
+  border-radius: var(--border-radius);
+   padding: 4px 6px;
+   background-color: forestgreen;
+    color: white;
+ }
 main .testimonials .testimonial-cart .price-and-status span:last-child {
   text-transform: uppercase;
+}
+.flex-buttons{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+main .testimonials .testimonial-cart .testimonial-button-add-basket, main .testimonials .testimonial-cart .instock{
+  width: 50%;
+}
+main .testimonials .testimonial-cart .testimonial-button-add-basket button {
+  width: 100%;
+  padding: 8px 0;
+  cursor: pointer;
+  background-color: black;
+  color: #fff;
+  font-family: var(--font-family);
+  text-transform: uppercase;
+  font-size: 1rem !important;
+  margin-left: 0;
+  margin-top: 25px;
+  border-bottom-left-radius: 16px !important;
+  border-top-left-radius: 16px !important;
+}
+.instock button{
+  width: 100%;
+  padding: 8px 0;
+  font-size: 1rem !important;
+  border-bottom-right-radius: 16px !important;
+  border-top-right-radius: 16px !important;
+  border-bottom-left-radius: 0px !important;
+  border-top-left-radius: 0px !important;
 }
 main .testimonials .testimonial-cart .testimonial-button-go-over button {
   width: 100%;
@@ -387,14 +418,21 @@ main .testimonials .testimonial-cart .testimonial-button-go-over button {
   main {
     width: 90%;
   }
+  main .testimonials .testimonial-title-desctiption{
+    font-size: 1em;
+  }
   main .testimonials .testimonial-cart {
     width: 120px;
-    height: 400px;
+    height: 300px;
   }
   main .testimonials .testimonial-cart .price-and-status{
   font-size: 0.8em;}
   main .testimonials .testimonial-carts {
     justify-content: space-around;
+  }
+  main .testimonials .testimonial-cart .testimonial-button-add-basket button,
+  .instock button{
+    font-size: 0.7rem !important;
   }
 }
 @media screen and (min-width: 380px) and (max-width: 485px) {
@@ -403,7 +441,7 @@ main .testimonials .testimonial-cart .testimonial-button-go-over button {
   }
   main .testimonials .testimonial-cart {
     width: 150px;
-    height: 380px;
+    height: 350px;
   }
   main .testimonials .testimonial-carts {
     justify-content: space-around;
@@ -415,69 +453,43 @@ main .testimonials .testimonial-cart .testimonial-button-go-over button {
   }
   main .testimonials .testimonial-cart {
     width: 150px;
-    height: 400px;
+    height: 300px;
+  }
+  main .testimonials .testimonial-title-desctiption{
+    font-size: 1em;
   }
   main .testimonials .testimonial-cart .price-and-status{
   font-size: 0.7em;}
   main .testimonials .testimonial-carts {
     justify-content: space-around;
   }
+  main .testimonials .testimonial-cart .testimonial-button-add-basket button,
+  .instock button{
+    font-size: 0.7rem !important;
+  }
 }
-/*section {*/
-/*  width: 1200px;*/
-/*  height: 550px;*/
-/*  margin: auto;*/
-/*  display: flex;*/
-/*  justify-content: center;*/
-/*  align-items: center;*/
-/*  flex-direction: column;*/
-/*  gap: 40px;*/
-/*  border-radius: 16px;*/
-/*  background: #bbd2c5; !* fallback for old browsers *!*/
-/*  background: -webkit-linear-gradient(*/
-/*    to right,*/
-/*    #292e49,*/
-/*    #536976,*/
-/*    #bbd2c5*/
-/*  ); !* Chrome 10-25, Safari 5.1-6 *!*/
-/*  background: linear-gradient(*/
-/*    to left,*/
-/*    #292e49,*/
-/*    rgb(102, 23, 23),*/
-/*    rgb(167, 121, 37),*/
-/*    #5b7d91,*/
-/*    #90d6ae*/
-/*  ); !* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ *!*/
-/*  margin-bottom: 70px;*/
-/*}*/
-/*section .logo {*/
-/*  order: 0;*/
-/*  font-size: 3.4em;*/
-/*  color: white;*/
-/*}*/
-/*section h2 {*/
-/*  color: white;*/
-/*  text-align: center;*/
-/*  width: 55%;*/
-/*  line-height: 1.5em;*/
-/*  letter-spacing: 0.08em;*/
-/*}*/
-/*section a {*/
-/*  background-color: white;*/
-/*  padding: 10px 125px;*/
-/*  border-radius: var(--border-radius);*/
-/*  text-transform: uppercase;*/
-/*  font-weight: 600;*/
-/*  text-align: center;*/
-/*}*/
-/*@media screen and (max-width: 1000px) {*/
-/*  section {*/
-/*    width: 90%;*/
-/*  }*/
-/*  section a {*/
-/*    width: 90%;*/
-/*  }*/
-/*}*/
+@media screen and (min-width: 1000px) and (max-width: 1200px) {
+  main {
+    width: 90%;
+  }
+  main .testimonials .testimonial-title-desctiption{
+    font-size: 1em;
+  }
+  main .testimonials .testimonial-cart {
+    width: 170px;
+    height: 350px;
+
+  }
+  main .testimonials .testimonial-cart .price-and-status{
+  font-size: 0.7em;}
+  main .testimonials .testimonial-carts {
+    justify-content: space-around;
+  }
+  main .testimonials .testimonial-cart .testimonial-button-add-basket button,
+  .instock button, main .testimonials .testimonial-cart .testimonial-button-go-over button{
+    font-size: 0.7rem !important;
+  }
+}
 footer {
   width: 100%;
   padding: 40px 60px 0px;

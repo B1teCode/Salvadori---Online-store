@@ -49,14 +49,10 @@ class UserRegistrationForm(UserCreationForm):
 
 
 class UserProfileForm(UserChangeForm):
-    first_name = forms.CharField(widget=forms.TextInput(attrs={
+    fio = forms.CharField(widget=forms.TextInput(attrs={
         'class': 'form-control py-4 rounded-pill',
-        'placeholder': 'Введите имя'
-    }), required=False)
-    last_name = forms.CharField(widget=forms.TextInput(attrs={
-        'class': 'form-control py-4 rounded-pill',
-        'placeholder': 'Введите фамилию'
-    }), required=False)
+        'placeholder': 'Введите ФИО'
+    }), required=True)
     city = forms.CharField(widget=forms.TextInput(attrs={
         'class': 'form-control py-4 rounded-pill',
         'placeholder': 'Введите город'
@@ -89,5 +85,5 @@ class UserProfileForm(UserChangeForm):
 
     class Meta:
         model = Users
-        fields = ('first_name', 'last_name', 'city', 'address', 'phone',
+        fields = ('fio', 'city', 'address', 'phone',
                   'telegram_account', 'username', 'email', 'image')

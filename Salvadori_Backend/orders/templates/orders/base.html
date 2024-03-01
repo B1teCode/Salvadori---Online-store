@@ -17,7 +17,7 @@
 <body>
 
 <nav class="navbar">
-    <div class="navbar-container container">
+    <div class="navbar-container">
         <input type="checkbox" name="" id="">
         <div class="hamburger-lines">
             <span class="line line1"></span>
@@ -27,11 +27,15 @@
         <ul class="menu-items" style="position: relative; top: 8px">
             {% for category in categories %}
                 <a href="{% url 'category_paginator' category_id=category.id page_number=1 %}">
-                    <li>{{ category.name }}</li>
+                    {% if category.name == "Индивидуальный заказ" %}
+                        <li>Нашли для вас</li>
+                        {% else %}
+                        <li>{{ category.name }}</li>
+                    {% endif %}
                 </a>
             {% endfor %}
                 <a href="{% url 'orders:custom_order' %}">
-                    <li>Оформить заказ</li>
+                    <li>Индивидуальный заказ</li>
                 </a>
         </ul>
         <div class="profile">
@@ -79,5 +83,18 @@
 <!-- FontAwesome script -->
 <script src="{% static 'vendor/fontawesome/fontawesome-icons.js' %}" crossorigin="anonymous"></script>
 
+<script>
+    document.getElementById('id_product_photo').addEventListener('change', function() {
+      const fileInput = this;
+      const label = document.getElementById('imageLabel');
+      const labelDefaultText = 'Выберите изображение';
+
+      if (fileInput.files.length > 0) {
+        label.innerText = fileInput.files[0].name;
+      } else {
+        label.innerText = labelDefaultText;
+      }
+    });
+  </script>
 </body>
 </html>

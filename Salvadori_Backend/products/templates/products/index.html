@@ -67,9 +67,6 @@
                     <div class="testimonial-cart">
                     <div class="images">
                         <img src="{{ item.main_image.url }}" alt=""><br>
-                        <a href="{% url 'basket_add' item.id %}" style="margin-top: 70%; font-size: 1.8em; color: #212323; position: relative;">
-                            <i class='bx bxs-cart-add' ></i>
-                        </a>
                     </div>
                     <div class="testimonial-description">
                         <a href="{% url 'product' item.id %}">
@@ -78,7 +75,7 @@
                             </h2>
                         </a>
                         <div class="price-and-status"><span class="testimonial-price">от {{ item.converted_price|intcomma }}</span>
-                            {% if item.in_stock %}<span>В НАЛИЧИИ</span>{% else %}<span class="tag"> По запросу</span>{% endif %}
+                            {% if item.in_stock %}<span class="tag1">В НАЛИЧИИ</span>{% else %}<span> По запросу</span>{% endif %}
                         </div>
                     </div>
                     <a href="{% url 'product' item.id %}" class="testimonial-button-go-over">
@@ -99,7 +96,6 @@
                     {% else %}
                     hello
                 {% endif %}
-{#                <a href="#">Все модели <i class='bx bxs-right-top-arrow-circle bx-tada'></i></a>#}
             </div>
             <div class="testimonial-carts">
                 {% for item in products_paginator %}
@@ -107,9 +103,6 @@
                     <div class="testimonial-cart">
                         <div class="images">
                             <img src="{{ item.main_image.url }}" alt=""><br>
-                            <a href="{% url 'basket_add' item.id %}" style="margin-top: 70%; font-size: 1.8em; color: #212323; position: relative;">
-                                <i class='bx bxs-cart-add' ></i>
-                            </a>
                         </div>
                         <div class="testimonial-description">
                             <a href="{% url 'product' item.id %}">
@@ -120,9 +113,9 @@
                             <div class="price-and-status">
                                 <span class="testimonial-price">от {{ item.converted_price|intcomma }}</span>
                                 {% if item.in_stock %}
-                                    <span>В НАЛИЧИИ</span>
+                                    <span class="tag1">В НАЛИЧИИ</span>
                                 {% else %}
-                                    <span class="tag"> По запросу</span>
+                                    <span> По запросу</span>
                                 {% endif %}
                             </div>
                         </div>
@@ -147,8 +140,6 @@
                 </a>
             </div>
 
-{#    {% else %}#}
-{#        <p>Нет товаров для отображения</p>#}
     {% endif %}
     </main>
 {% endblock %}

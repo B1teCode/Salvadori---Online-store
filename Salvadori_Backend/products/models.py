@@ -4,7 +4,6 @@ from django.db import models
 
 from users.models import Users
 
-stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
 class ExchangeRate(models.Model):
@@ -76,19 +75,6 @@ class Product(models.Model):
             tariff_price = self.tariff.price if self.tariff else 0
             return round(self.price + tariff_price, 2)
 
-    # def save(
-    #     self, force_insert=False, force_update=False, using=None, update_fields=None
-    # ):
-    #     if not self.stripe_product_price_id:
-    #         stripe_product_price = self.create_stripe_product_price()
-    #         self.stripe_product_price_id = stripe_product_price['id']
-    #     super(Product, self).save(force_insert=False, force_update=False, using=None, update_fields=None)
-    # def create_stripe_product_price(self):
-    #     stripe_product = stripe.Product.create(name=self.name)
-    #     converted_price = self.converted_price()
-    #     stripe_product_price = stripe.Price.create(
-    #         product=stripe_product['id'], unit_amount=round(converted_price * 100), currency='rub')
-    #     return stripe_product_price
 
 
 class ProductImage(models.Model):
@@ -138,23 +124,6 @@ class BasketQuerySet(models.QuerySet):
     def total_quantity(self):
         return sum(basket.quantity for basket in self)
 
-    def stripe_products(self):
-        line_items = []
-        for basket in self:
-            if basket.size:
-                price_id = getattr(basket.size, 'stripe_size_price_id', None)
-            else:
-                price_id = getattr(basket.product, 'stripe_product_price_id', None)
-
-            if price_id:
-                item = {
-                    'price': price_id,
-                    'quantity': basket.quantity
-                }
-                line_items.append(item)
-
-        return line_items
-
 
 class Basket(models.Model):
     user = models.ForeignKey(to=Users, on_delete=models.CASCADE)
@@ -182,39 +151,6 @@ class Basket(models.Model):
     def sum(self):
         return self.total_price()
 
-    def create_stripe_product_price(self):
-        stripe_product = stripe.Product.create(name=self.product.name)
-        converted_price = self.size.converted_price() if self.size else self.product.converted_price()
-
-        stripe_product_price = stripe.Price.create(
-            product=stripe_product['id'],
-            unit_amount=round(converted_price * 100),
-            currency='rub'
-        )
-
-        # Сохраняем stripe_product_price_id в объекте (не в базу данных)
-        if self.size:
-            self.size.stripe_size_price_id = stripe_product_price['id']
-        else:
-            self.product.stripe_product_price_id = stripe_product_price['id']
-
-        return stripe_product_price
-
-    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
-        if self.size:
-            stripe_size_price_id = getattr(self.size, 'stripe_size_price_id', None)
-            if not stripe_size_price_id:
-                stripe_size_price = self.create_stripe_product_price()
-                self.stripe_size_price_id = stripe_size_price['id']
-                self.size.save()  # Сохраняем объект размера в базу данных
-        else:
-            stripe_product_price_id = getattr(self.product, 'stripe_product_price_id', None)
-            if not stripe_product_price_id:
-                stripe_product_price = self.create_stripe_product_price()
-                self.stripe_product_price_id = stripe_product_price['id']
-                self.product.save()  # Сохраняем объект продукта в базу данных
-
-        super(Basket, self).save(force_insert=False, force_update=False, using=None, update_fields=None)
 
     def de_json(self):
         if self.size:

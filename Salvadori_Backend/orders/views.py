@@ -1,6 +1,6 @@
-from http import HTTPStatus
-
 import stripe
+
+from http import HTTPStatus
 from django.conf import settings
 from django.db.models import Count
 from django.http import HttpResponse, HttpResponseRedirect
@@ -88,20 +88,8 @@ class OrderDetailView(DetailView):
 class OrderCreateView(TitleMixin, CreateView):
     template_name = 'orders/order-create.html'
     form_class = OrderForm
-    success_url = reverse_lazy('orders:order_creator')
+    success_url = reverse_lazy('orders:payment')
     title = 'SALVADORI - Оформление Заказа'
-
-    def post(self, request, *args, **kwargs):
-        super(OrderCreateView, self).post(request, *args, **kwargs)
-        baskets = Basket.objects.filter(user=self.request.user)
-        checkout_session = stripe.checkout.Session.create(
-            line_items=baskets.stripe_products(),
-            metadata={'order_id': self.object.id},
-            mode='payment',
-            success_url='{}{}'.format(settings.DOMAIN_NAME, reverse('orders:order_success')),
-            cancel_url='{}{}'.format(settings.DOMAIN_NAME, reverse('orders:order_canceled')),
-        )
-        return HttpResponseRedirect(checkout_session.url, status=HTTPStatus.SEE_OTHER)
 
     def form_valid(self, form):
         form.instance.initiator = self.request.user
@@ -118,47 +106,57 @@ class OrderCreateView(TitleMixin, CreateView):
 
         # Добавляем форму с начальным значением address
         if self.request.user.is_authenticated:
+            user_fio = self.request.user.fio
             user_address = self.request.user.address
+            user_email = self.request.user.email
+            user_phone = self.request.user.phone
         else:
             user_address = None
 
-        context['order_form'] = OrderForm(initial={'address': user_address})
+        context['order_form'] = OrderForm(initial={
+            'address': user_address,
+            'phone': user_phone,
+            'email': user_email,
+            'fio': user_fio
+        })
         return context
 
 
-@csrf_exempt
-def stripe_webhook_view(request):
-    payload = request.body
-    sig_header = request.META['HTTP_STRIPE_SIGNATURE']
-    event = None
+class PaymentView(TemplateView):
+    template_name = 'orders/payment.html'  # Создайте шаблон для страницы оплаты
 
-    try:
-        event = stripe.Webhook.construct_event(
-            payload, sig_header, settings.STRIPE_WEBHOOK_SECRET
-        )
-    except ValueError as e:
-        # Invalid payload
-        return HttpResponse(status=400)
-    except stripe.error.SignatureVerificationError as e:
-        # Invalid signature
-        return HttpResponse(status=400)
+    def form_valid(self, form):
+        form.instance.initiator = self.request.user
+        return super(OrderCreateView, self).form_valid(form)
 
-    # Handle the checkout.session.completed event
-    if event['type'] == 'checkout.session.completed':
-        # Retrieve the session. If you require line items in the response, you may include them by expanding line_items.
-        session = event['data']['object']
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        categories_with_count = ProductCategory.objects.annotate(product_count=Count('product'))
+        categories = categories_with_count.filter(product_count__gt=0)
+        products = CustomOrder.objects.filter(user=self.request.user).values_list('product', flat=True)
+        if not products.exists():
+            categories = categories.exclude(name='Индивидуальный заказ')
+        context['categories'] = categories
 
-        # Fulfill the purchase...
-        fulfill_order(session)
+        # Добавляем форму с начальным значением address
+        if self.request.user.is_authenticated:
+            user_fio = self.request.user.fio
+            user_address = self.request.user.address
+            user_email = self.request.user.email
+            user_phone = self.request.user.phone
+        else:
+            user_address = None
+            user_email = None
+            user_fio = None
+            user_phone = None
 
-    # Passed signature verification
-    return HttpResponse(status=200)
-
-
-def fulfill_order(session):
-    order_id = int(session.metadata.order_id)
-    order = Order.objects.get(id=order_id)
-    order.update_after_payment()
+        context['order_form'] = OrderForm(initial={
+            'address': user_address,
+            'phone': user_phone,
+            'email': user_email,
+            'fio': user_fio
+        })
+        return context
 
 
 class CustomOrderCreateView(TitleMixin, CreateView):

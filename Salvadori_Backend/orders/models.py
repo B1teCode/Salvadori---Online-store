@@ -18,20 +18,24 @@ class Order(models.Model):
         (DELIVERED, 'Доставлен'),
     )
 
-    first_name = models.CharField(max_length=64)
-    last_name = models.CharField(max_length=64)
+    fio = models.CharField(max_length=256, blank=True, null=True)
     email = models.EmailField(max_length=256)
     address = models.CharField(max_length=256)
     basket_history = models.JSONField(default=dict)
     created = models.DateTimeField(auto_now_add=True)
     status = models.SmallIntegerField(default=CREATED, choices=STATUSES)
     initiator = models.ForeignKey(to=Users, on_delete=models.CASCADE)
+    phone = models.CharField(max_length=20, null=True, blank=True)
+    numbers_delivery = models.CharField(max_length=20, null=True, blank=True)
+
+    is_cdek_delivery = models.BooleanField(default=False, verbose_name='Доставка СДЭК')
+    is_boxberry_delivery = models.BooleanField(default=False, verbose_name='Доставка Boxberry')
 
     class Meta:
         verbose_name_plural = 'Заказы'
 
     def __str__(self):
-        return f'Заказ #{self.id}. {self.first_name} {self.last_name}'
+        return f'Заказ #{self.id}. {self.email}'
 
     def update_after_payment(self):
         baskets = Basket.objects.filter(user=self.initiator)

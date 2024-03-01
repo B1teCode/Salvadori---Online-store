@@ -1,9 +1,21 @@
 {% extends 'orders/base.html' %}
 
 {% block content %}
+    <style>
+    @media screen and (max-width: 780px) {
+        .h1{
+            width: 360px;
+            text-align: center;
+        }
+        h3{
+            width: 360px;
+            text-align: center;
+        }
+    }
+    </style>
     <div style="margin: 150px; display: flex; flex-direction: column; justify-content: center; align-items: center">
-        <h1 style="margin: 30px">Спасибо за заказ</h1>
+        <h1 class="h1" style="margin: 30px">Спасибо за заказ</h1>
         <h3>Ваш заказ успешно оформлен</h3>
-        <a href="{% url 'orders:orders_list' %}">Посмотреть заказы</a>
+        <a href="{% url 'orders:orders_list' %}" style="text-decoration: underline">Посмотреть заказы</a>
     </div>
 {% endblock %}

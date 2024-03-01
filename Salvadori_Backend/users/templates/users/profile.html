@@ -22,7 +22,7 @@
 <body>
 <!-- Navigation -->
 <nav class="navbar">
-    <div class="navbar-container container">
+    <div class="navbar-container">
         <input type="checkbox" name="" id="">
         <div class="hamburger-lines">
             <span class="line line1"></span>
@@ -32,11 +32,15 @@
          <ul class="menu-items" style="position: relative; top: 8px">
             {% for category in categories %}
                 <a href="{% url 'category_paginator' category_id=category.id page_number=1 %}">
-                    <li>{{ category.name }}</li>
+                    {% if category.name == "Индивидуальный заказ" %}
+                        <li>Нашли для вас</li>
+                        {% else %}
+                        <li>{{ category.name }}</li>
+                    {% endif %}
                 </a>
             {% endfor %}
                 <a href="{% url 'orders:custom_order' %}">
-                    <li>Оформить заказ</li>
+                    <li>Индивидуальный заказ</li>
                 </a>
          </ul>
         <div class="profile">
@@ -76,24 +80,13 @@
     <div class="row">
         <div class="col-lg-7">
             <h4 class="mt-3 mb-3">Профиль</h4>
-            <div class="col-lg-12 text-center">
-                <img width="200" height="200"
-                     src="{% if user.image %} {{ user.image.url }} {% else %} {% static 'vendor/img/default_avatar.jpg' %} {% endif %}"
-                     class="img-thumbnail">
-            </div>
             <form action="{% url 'users:profile' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="form-row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-12">
                         <div class="form-group">
-                            <label class="small mb-1" for="{{ form.first_name.id_for_label }}">Имя</label>
-                            {{ form.first_name }}
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label class="small mb-1" for="{{ form.last_name.id_for_label }}">Фамилия</label>
-                            {{ form.last_name }}
+                            <label class="small mb-1" for="{{ form.fio.id_for_label }}">ФИО</label>
+                            {{ form.fio }}
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -107,13 +100,6 @@
                             <label class="small mb-1" for="{{ form.address.id_for_label }}"
                                    style="display: flex; justify-content: space-between">
                                 Адрес СДЭК или Boxbery
-                                {% if user.address and not user.verified_address and not user.unverified_address %}
-                                    <small class="text-warning" style="font-size: 0.7rem;">Ожидает подтверждения</small>
-                                {% elif user.address and user.verified_address and not user.unverified_address %}
-                                    <small class="text-success" style="font-size: 0.8rem;">Подтверждена</small>
-                                {% elif user.address and not user.verified_address and user.unverified_address %}
-                                    <small class="text-danger" style="font-size: 0.8rem;">Добавьте другой адрес</small>
-                                {% endif %}
                             </label>
                             {{ form.address }}
                         </div>
@@ -126,16 +112,8 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="form-group">
-                            <label class="small mb-1" for="{{ form.telegram_account.id_for_label }}">ССылка на WhatsApp или Telegram</label>
+                            <label class="small mb-1" for="{{ form.telegram_account.id_for_label }}">Ваш Telegram аккаунт</label>
                             {{ form.telegram_account }}
-                        </div>
-                    </div>
-                </div>
-                <div class="form-row mb-2">
-                    <div class="col-lg-12">
-                        <div class="custom-file">
-                            {{ form.image }}
-                            <label class="custom-file-label" for="{{ form.image.id_for_label }}">Выберите изображение</label>
                         </div>
                     </div>
                 </div>
@@ -150,8 +128,8 @@
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="col-lg-12" style="margin-top: 33px;">
-                        <input class="btn btn-info btn-block bg-dark border-dark" type="submit" value="Сохранить">
+                    <div class="col-lg-12" style="margin-top: 33px; color: white">
+                        <input class="btn btn-info border-dark" style="background: black; width: 100%;" type="submit" value="Сохранить">
                     </div>
                 </div>
             </form>
