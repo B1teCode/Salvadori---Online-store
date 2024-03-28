@@ -16,7 +16,7 @@ from orders.forms import CustomOrderForm, OrderForm
 from orders.models import CustomOrder, Order
 from products.models import Basket, ProductCategory
 
-stripe.api_key = settings.STRIPE_SECRET_KEY
+
 
 
 class SuccessTemplateView(TitleMixin, TemplateView):
